@@ -14,7 +14,7 @@ const testimonials = [{
   result: "3x Lead Generation"
 }, {
   quote: "Working with Jhun was seamless. He understood exactly what we needed for our telemedicine platform: clean design, fast performance, and trust. Patients love it.",
-  author: "Dr. Sarah M.",
+  author: "Sunil Modi",
   role: "Founder, BabiesMD",
   rating: 5,
   result: "98% Patient Satisfaction"

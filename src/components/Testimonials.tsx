@@ -2,7 +2,7 @@ import { Star, Quote } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const testimonials = [{
-  quote: "Jhun delivered a stunning website that exceeded our expectations. The design is clean, the site loads fast, and most importantly, our conversions doubled. Highly recommend.",
+  quote: "Jhun delivered our complete website redesign ahead of schedule, and the results exceeded our expectations. The design is clean, the site loads fast, and most importantly, our conversions doubled. Highly recommend.",
   author: "James Racine",
   role: "CEO, James Christian Cosmetics",
   rating: 5,

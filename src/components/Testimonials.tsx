@@ -3,7 +3,7 @@ import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const testimonials = [{
   quote: "Jhun delivered a stunning website that exceeded our expectations. The design is clean, the site loads fast, and most importantly, our conversions doubled. Highly recommend.",
-  author: "James R.",
+  author: "James Racine",
   role: "CEO, James Christian Cosmetics",
   rating: 5,
   result: "2x Conversions"

@@ -8,7 +8,7 @@ const testimonials = [{
   result: "2x Conversions"
 }, {
   quote: "Professional, responsive, and incredibly skilled. Our websites look amazing and actually generate leads. Jhun quickly solves things when there is a problem. Always ready to call anytime.",
-  author: "Marketing Director",
+  author: "Dave Nilson",
   role: "SEOBackOffice",
   rating: 5,
   result: "3x Lead Generation"

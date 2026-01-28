@@ -1,5 +1,5 @@
 import { Check, Globe, Zap, BarChart3, ArrowRight } from 'lucide-react';
-const mainFeatures = ["Custom design tailored to your brand", "Fast loading and mobile responsive", "Conversion focused layouts", "SEO built in from the start", "Ongoing maintenance available", "Domain, hosting, and email setup"];
+const mainFeatures = ["Custom design tailored to your brand", "Fast loading and mobile responsive", "Conversion focused layouts", "SEO built in from the start", "Ongoing maintenance available", "Domain, hosting, and email setup", "Performance optimization (Core Web Vitals)", "Security & error-free code"];
 const additionalServices = [{
   icon: Zap,
   title: "GHL Systems & Automation",
@@ -37,7 +37,7 @@ export const Solution = () => {
               </div>
               <div className="flex-1">
                 <div className="flex flex-wrap items-center gap-3 mb-3">
-                  <h3 className="font-display text-2xl md:text-3xl font-bold text-foreground">Performance optimization </h3>
+                  <h3 className="font-display text-2xl md:text-3xl font-bold text-foreground">Web Design & Development</h3>
                   <span className="text-xs px-2.5 py-1 bg-primary text-primary-foreground rounded-full font-semibold">
                     Core Service
                   </span>

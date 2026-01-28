@@ -7,7 +7,7 @@ const testimonials = [{
   rating: 5,
   result: "2x Conversions"
 }, {
-  quote: "Professional, responsive, and incredibly skilled. Our new website looks amazing and actually generates leads. Best investment we made this year.",
+  quote: "Professional, responsive, and incredibly skilled. Our websites look amazing and actually generate leads. Jhun quickly solves things when there is a problem. Always ready to call anytime.",
   author: "Marketing Director",
   role: "SEOBackOffice",
   rating: 5,

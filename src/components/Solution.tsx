@@ -1,5 +1,5 @@
 import { Check, Globe, Zap, BarChart3, ArrowRight } from 'lucide-react';
-const mainFeatures = ["Custom design tailored to your brand", "Fast loading and mobile responsive", "Conversion focused layouts", "SEO built in from the start", "Ongoing maintenance available", "Domain, hosting, and email setup"];
+const mainFeatures = ["Custom design tailored to your brand", "Fast loading and mobile responsive", "Conversion focused layouts", "SEO built in from the start", "Ongoing maintenance available", "Domain, hosting, and email setup", "Performance optimization (Core Web Vitals)", "Security & error-free code"];
 const additionalServices = [{
   icon: Zap,
   title: "GHL Systems & Automation",

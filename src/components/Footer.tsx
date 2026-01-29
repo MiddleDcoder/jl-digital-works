@@ -1,11 +1,9 @@
 import { Linkedin, MessageCircle, Mail, Heart, ArrowUp } from 'lucide-react';
 import logo from '@/assets/jldigitalworks-logo.png';
 import { useEffect, useState } from 'react';
-
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
   const [showBackToTop, setShowBackToTop] = useState(false);
-
   useEffect(() => {
     const handleScroll = () => {
       setShowBackToTop(window.scrollY > 400);
@@ -13,24 +11,15 @@ export const Footer = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
     });
   };
-
-  return (
-    <>
+  return <>
       {/* Fixed Back to Top Button */}
-      <button
-        onClick={scrollToTop}
-        className={`fixed bottom-6 right-6 z-50 p-3 rounded-full bg-primary text-primary-foreground shadow-lg transition-all duration-300 hover:bg-primary/90 hover:-translate-y-1 hover:shadow-xl ${
-          showBackToTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
-        }`}
-        aria-label="Back to top"
-      >
+      <button onClick={scrollToTop} className={`fixed bottom-6 right-6 z-50 p-3 rounded-full bg-primary text-primary-foreground shadow-lg transition-all duration-300 hover:bg-primary/90 hover:-translate-y-1 hover:shadow-xl ${showBackToTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'}`} aria-label="Back to top">
         <ArrowUp className="w-5 h-5" />
       </button>
 
@@ -41,7 +30,7 @@ export const Footer = () => {
             {/* Logo & Tagline */}
             <div className="flex flex-col items-center md:items-start gap-4">
               <div className="flex items-center gap-3">
-                <img src={logo} alt="JL Digital Works Logo" width="40" height="40" loading="lazy" className="w-10 h-10" />
+                <img src={logo} alt="JL Digital Works Logo" width="40" height="40" loading="lazy" className="w-10 h-10 object-contain" />
                 <div>
                   <p className="font-display font-bold text-lg">JL DIGITAL WORKS</p>
                   <p className="text-background/60 text-sm">Web, Automation & Tracking</p>
@@ -70,29 +59,13 @@ export const Footer = () => {
             <div className="flex flex-col items-center md:items-end gap-3">
               <p className="font-semibold text-background/80 mb-2">Connect</p>
               <div className="flex gap-3">
-                <a
-                  href="https://linkedin.com/in/jlorenzaasna"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2.5 rounded-full bg-background/10 hover:bg-primary hover:text-primary-foreground transition-all"
-                  aria-label="LinkedIn"
-                >
+                <a href="https://linkedin.com/in/jlorenzaasna" target="_blank" rel="noopener noreferrer" className="p-2.5 rounded-full bg-background/10 hover:bg-primary hover:text-primary-foreground transition-all" aria-label="LinkedIn">
                   <Linkedin className="w-4 h-4" />
                 </a>
-                <a
-                  href="https://wa.me/639773155072"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2.5 rounded-full bg-background/10 hover:bg-primary hover:text-primary-foreground transition-all"
-                  aria-label="WhatsApp"
-                >
+                <a href="https://wa.me/639773155072" target="_blank" rel="noopener noreferrer" className="p-2.5 rounded-full bg-background/10 hover:bg-primary hover:text-primary-foreground transition-all" aria-label="WhatsApp">
                   <MessageCircle className="w-4 h-4" />
                 </a>
-                <a
-                  href="mailto:jlorenzaasna@gmail.com"
-                  className="p-2.5 rounded-full bg-background/10 hover:bg-primary hover:text-primary-foreground transition-all"
-                  aria-label="Email"
-                >
+                <a href="mailto:jlorenzaasna@gmail.com" className="p-2.5 rounded-full bg-background/10 hover:bg-primary hover:text-primary-foreground transition-all" aria-label="Email">
                   <Mail className="w-4 h-4" />
                 </a>
               </div>
@@ -111,6 +84,5 @@ export const Footer = () => {
           </div>
         </div>
       </footer>
-    </>
-  );
+    </>;
 };

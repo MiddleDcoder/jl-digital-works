@@ -4,7 +4,7 @@ import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 const projects = [
   {
     title: "James Christian Cosmetics",
-    description: "Modern e-commerce website with clean design, fast performance, and seamless user experience.",
+    description: "Full website with booking integration, blogs, SEO optimization, lead capture, and comprehensive service pages.",
     url: "https://jameschristiancosmetics.com",
     category: "Web Design & Development",
     result: "2x Conversions",
@@ -14,7 +14,7 @@ const projects = [
     title: "Vampire Facelifts",
     description: "High-converting landing page designed for maximum lead capture and clear call-to-actions.",
     url: "https://vampirefacelifts.com",
-    category: "Landing Page Design",
+    category: "Converting Website",
     result: "45% Conversion Rate",
     addOns: "Tracking"
   },
@@ -22,31 +22,31 @@ const projects = [
     title: "Wizard Tower",
     description: "Feature-rich e-commerce website with intuitive navigation and optimized checkout flow.",
     url: "https://wizardtower.com",
-    category: "E-commerce Website",
+    category: "WordPress Development",
     result: "50K+ Monthly Visitors",
     addOns: "Analytics"
   },
   {
-    title: "SEO Back Office",
+    title: "Beauty Med Supply",
     description: "Professional agency website that clearly communicates services and generates qualified leads.",
-    url: "https://seobackoffice.org",
+    url: "https://beautymedsupply.com/",
     category: "Business Website",
     result: "3x Lead Generation",
     addOns: "GHL + Tracking"
   },
   {
-    title: "BabiesMD",
-    description: "Clean, trustworthy telemedicine platform designed for parents and pediatric care.",
-    url: "https://babiesmd.com",
-    category: "Healthcare Website",
+    title: "Classic Vinyl Wraps",
+    description: "High-converting landing page showcasing premium vehicle wrap services with bold visuals and clear CTAs.",
+    url: "https://classicvinylwraps.com/",
+    category: "Landing Page Design",
     result: "500+ Patients",
     addOns: "Booking System"
   },
   {
-    title: "PuzzlCrate",
+    title: "Paraguay Pathways",
     description: "Engaging subscription e-commerce site with compelling product presentation.",
-    url: "https://puzzlcrate.com",
-    category: "E-commerce Website",
+    url: "https://paraguaypathways.com/",
+    category: "Tracking Analytics + GHL & Automation",
     result: "1000+ Subscribers",
     addOns: "Automation"
   }

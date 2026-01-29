@@ -1,5 +1,5 @@
 import { Linkedin, MessageCircle, Mail, Heart, ArrowUp } from 'lucide-react';
-import logo from '@/assets/logo.png';
+import logo from '@/assets/jldigitalworks-logo.png';
 import { useEffect, useState } from 'react';
 
 export const Footer = () => {

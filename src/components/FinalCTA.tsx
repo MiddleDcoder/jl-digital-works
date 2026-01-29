@@ -34,7 +34,7 @@ export const FinalCTA = () => {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
               <a
-                href="https://cal.com/jla-webdev-inflip"
+                href="https://cal.com/jl-digital-works"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-primary text-primary-foreground rounded-full font-semibold text-lg hover:opacity-90 transition-all hover:scale-105 shadow-lg shadow-primary/30"

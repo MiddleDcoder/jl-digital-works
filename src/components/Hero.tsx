@@ -9,7 +9,7 @@ export const Hero = () => {
           <div className="order-2 lg:order-1 text-center lg:text-left">
             {/* Trust Badge */}
             <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full animate-in">
-              <img src={logo} alt="JL Digital Works Logo" width="20" height="20" className="w-5 h-5" />
+              
               <span className="text-sm font-medium text-primary">Freelance Web Systems Consultant</span>
             </div>
 

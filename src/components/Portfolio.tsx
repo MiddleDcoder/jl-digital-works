@@ -6,49 +6,37 @@ const projects = [
     title: "James Christian Cosmetics",
     description: "Full website with booking integration, blogs, SEO optimization, lead capture, and comprehensive service pages.",
     url: "https://jameschristiancosmetics.com",
-    category: "Web Design & Development",
-    result: "2x Conversions",
-    addOns: "GHL + Tracking"
+    category: "Web Design & Development"
   },
   {
     title: "Vampire Facelifts",
     description: "High-converting landing page designed for maximum lead capture and clear call-to-actions.",
     url: "https://vampirefacelifts.com",
-    category: "Converting Website",
-    result: "45% Conversion Rate",
-    addOns: "Tracking"
+    category: "Converting Website"
   },
   {
     title: "Wizard Tower",
     description: "Feature-rich e-commerce website with intuitive navigation and optimized checkout flow.",
     url: "https://wizardtower.com",
-    category: "WordPress Development",
-    result: "50K+ Monthly Visitors",
-    addOns: "Analytics"
+    category: "WordPress Development"
   },
   {
     title: "Beauty Med Supply",
     description: "Professional agency website that clearly communicates services and generates qualified leads.",
     url: "https://beautymedsupply.com/",
-    category: "Business Website",
-    result: "3x Lead Generation",
-    addOns: "GHL + Tracking"
+    category: "Business Website"
   },
   {
     title: "Classic Vinyl Wraps",
     description: "High-converting landing page showcasing premium vehicle wrap services with bold visuals and clear CTAs.",
     url: "https://classicvinylwraps.com/",
-    category: "Landing Page Design",
-    result: "500+ Patients",
-    addOns: "Booking System"
+    category: "Landing Page Design"
   },
   {
     title: "Paraguay Pathways",
     description: "Engaging subscription e-commerce site with compelling product presentation.",
     url: "https://paraguaypathways.com/",
-    category: "Tracking Analytics + GHL & Automation",
-    result: "1000+ Subscribers",
-    addOns: "Automation"
+    category: "Tracking Analytics + GHL & Automation"
   }
 ];
 

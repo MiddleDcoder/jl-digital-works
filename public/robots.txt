@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://jlawebdev.com/sitemap.xml
+Sitemap: https://jldigitalworks.com/sitemap.xml

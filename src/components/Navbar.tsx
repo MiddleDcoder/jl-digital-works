@@ -70,8 +70,8 @@ export const Navbar = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <a href="#hero" className="flex items-center gap-2">
-            <img src={logo} alt="JL Digital Works Logo" width="40" height="40" loading="eager" className="w-10 h-10 object-contain" />
-            <span className="font-display font-bold text-xl text-foreground hidden sm:block">JL DIGITAL WORKS</span>
+            <img src={logo} alt="JL Digital Works Logo" width="36" height="36" loading="eager" className="w-9 h-9 object-contain" />
+            <span className="font-display font-bold text-lg text-foreground hidden sm:block">JL DIGITAL WORKS</span>
           </a>
 
           {/* Desktop Navigation */}

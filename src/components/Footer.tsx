@@ -30,10 +30,10 @@ export const Footer = () => {
             {/* Logo & Tagline */}
             <div className="flex flex-col items-center md:items-start gap-4">
               <div className="flex items-center gap-3">
-                <img src={logo} alt="JL Digital Works Logo" width="40" height="40" loading="lazy" className="w-10 h-10 object-contain" />
+                <img src={logo} alt="JL Digital Works Logo" width="36" height="36" loading="lazy" className="w-9 h-9 object-contain" />
                 <div>
-                  <p className="font-display font-bold text-lg">JL DIGITAL WORKS</p>
-                  <p className="text-background/60 text-sm">Web, Automation & Tracking</p>
+                  <p className="font-display font-bold text-base leading-tight">JL DIGITAL WORKS</p>
+                  <p className="text-background/60 text-xs">Web, Automation & Tracking</p>
                 </div>
               </div>
               <p className="text-background/60 text-sm max-w-xs text-center md:text-left leading-relaxed">
@@ -59,13 +59,13 @@ export const Footer = () => {
             <div className="flex flex-col items-center md:items-end gap-3">
               <p className="font-semibold text-background/80 mb-2">Connect</p>
               <div className="flex gap-3">
-                <a href="https://linkedin.com/in/jlorenzaasna" target="_blank" rel="noopener noreferrer" className="p-2.5 rounded-full bg-background/10 hover:bg-primary hover:text-primary-foreground transition-all" aria-label="LinkedIn">
+                <a href="https://www.linkedin.com/in/jhun-lorenz-asna/" target="_blank" rel="noopener noreferrer" className="p-2.5 rounded-full bg-background/10 hover:bg-primary hover:text-primary-foreground transition-all" aria-label="LinkedIn">
                   <Linkedin className="w-4 h-4" />
                 </a>
                 <a href="https://wa.me/639773155072" target="_blank" rel="noopener noreferrer" className="p-2.5 rounded-full bg-background/10 hover:bg-primary hover:text-primary-foreground transition-all" aria-label="WhatsApp">
                   <MessageCircle className="w-4 h-4" />
                 </a>
-                <a href="mailto:jlorenzaasna@gmail.com" className="p-2.5 rounded-full bg-background/10 hover:bg-primary hover:text-primary-foreground transition-all" aria-label="Email">
+                <a href="mailto:jlawebdev05@gmail.com" className="p-2.5 rounded-full bg-background/10 hover:bg-primary hover:text-primary-foreground transition-all" aria-label="Email">
                   <Mail className="w-4 h-4" />
                 </a>
               </div>

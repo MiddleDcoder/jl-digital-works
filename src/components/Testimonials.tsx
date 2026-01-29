@@ -4,20 +4,17 @@ const testimonials = [{
   quote: "Jhun delivered our complete website redesign ahead of schedule, and the results exceeded our expectations. The design is clean, the site loads fast, and most importantly, our conversions doubled. Highly recommend.",
   author: "James Racine",
   role: "CEO, iVentureAssets",
-  rating: 5,
-  result: "2x Conversions"
+  rating: 5
 }, {
   quote: "Professional, responsive, and incredibly skilled. Our websites look amazing and actually generate leads. Jhun quickly solves things when there is a problem. Always ready to call anytime.",
   author: "Dave Nilson",
   role: "SEOBackOffice",
-  rating: 5,
-  result: "3x Lead Generation"
+  rating: 5
 }, {
-  quote: "Working with Jhun was seamless. He understood exactly what we needed for our telemedicine platform: clean design, fast performance, and trust. Patients love it.",
-  author: "Sunil Modi",
-  role: "Founder, BabiesMD",
-  rating: 5,
-  result: "98% Patient Satisfaction"
+  quote: "Jhun set up our tracking and GoHighLevel system from scratch. Now we know exactly which ads bring paying clients, and leads get followed up automatically. Game changer for our agency.",
+  author: "Rosco Balfour",
+  role: "Agency Owner",
+  rating: 5
 }];
 export const Testimonials = () => {
   const {

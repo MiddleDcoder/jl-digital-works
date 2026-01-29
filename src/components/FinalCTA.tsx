@@ -52,7 +52,7 @@ export const FinalCTA = () => {
                 WhatsApp
               </a>
               <a
-                href="mailto:jlorenzaasna@gmail.com"
+                href="mailto:jlawebdev05@gmail.com"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-background/10 text-background border border-background/20 rounded-full font-semibold text-lg hover:bg-background/20 transition-all"
               >
                 <Mail className="w-5 h-5" />

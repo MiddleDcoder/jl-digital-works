@@ -14,11 +14,14 @@
     <link rel="canonical" href="https://jldigitalworks.com/" />
 
     <!-- Preload LCP Image for faster discovery -->
-    <link rel="preload" as="image" href="/src/assets/jla-photo.png" fetchpriority="high" />
+    <link rel="preload" as="image" href="/jla-photo.png" fetchpriority="high" />
 
-    <!-- Preload Critical Fonts -->
+    <!-- Preconnect to external origins -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.gpteng.co" crossorigin />
+    
+    <!-- Preload Critical Fonts -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" /></noscript>
 

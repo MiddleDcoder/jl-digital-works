@@ -24,11 +24,11 @@ const faqs = [
   },
   {
     question: "How much does a website cost?",
-    answer: "Landing pages start around $1,000. Full websites range from $2,500 to $6,000 or more depending on complexity. GHL setup and tracking are quoted separately. You will get a clear quote after our call."
+    answer: "Landing pages start around $500-1,000. Full websites range from $1500-2,500 to $5,000 or more depending on complexity. GHL setup and tracking are quoted separately. You will get a clear quote after our call."
   },
   {
     question: "How long does a project take?",
-    answer: "Landing page: 1 to 2 weeks. Full website: 2 to 4 weeks. GHL setup: 1 to 3 weeks. Tracking: 3 to 5 days. Timelines are always discussed upfront."
+    answer: "Landing page: 1 to 2 weeks. Full website: 2 to 4 weeks. GHL setup: 1 to 3 weeks. Tracking: days to weeks. All projects depends on their complexity to complete. Timelines are always discussed upfront."
   },
   {
     question: "Do you work with international clients?",

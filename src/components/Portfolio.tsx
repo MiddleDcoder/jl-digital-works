@@ -16,15 +16,15 @@ const projects = [
   },
   {
     title: "Wizard Tower",
-    description: "Feature-rich e-commerce website with intuitive navigation and optimized checkout flow.",
+    description: "A Custom WordPress website built for performance, scalability, and smooth user experience, designed to support growing digital products and content.",
     url: "https://wizardtower.com",
     category: "WordPress Development"
   },
   {
     title: "Beauty Med Supply",
-    description: "Professional agency website that clearly communicates services and generates qualified leads.",
+    description: "A modern e-commerce website for medical and beauty supplies, designed for seamless product browsing, secure checkout, and customer trust (In development)",
     url: "https://beautymedsupply.com/",
-    category: "Business Website"
+    category: "E-commerce Website"
   },
   {
     title: "Classic Vinyl Wraps",

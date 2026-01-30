@@ -1,6 +1,10 @@
-import { ArrowRight, Mail, MessageCircle, Calendar } from 'lucide-react';
+import { useState } from 'react';
+import { Mail, MessageCircle, Calendar } from 'lucide-react';
+import { ContactFormModal } from './ContactFormModal';
 
 export const FinalCTA = () => {
+  const [contactModalOpen, setContactModalOpen] = useState(false);
+
   return (
     <section
       id="contact"
@@ -51,13 +55,13 @@ export const FinalCTA = () => {
                 <MessageCircle className="w-5 h-5" />
                 WhatsApp
               </a>
-              <a
-                href="mailto:jlawebdev05@gmail.com"
+              <button
+                onClick={() => setContactModalOpen(true)}
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-background/10 text-background border border-background/20 rounded-full font-semibold text-lg hover:bg-background/20 transition-all"
               >
                 <Mail className="w-5 h-5" />
-                Email Me
-              </a>
+                Contact Me
+              </button>
             </div>
 
             {/* Alternative Contact */}
@@ -93,6 +97,8 @@ export const FinalCTA = () => {
           </div>
         </div>
       </div>
+
+      <ContactFormModal open={contactModalOpen} onOpenChange={setContactModalOpen} />
     </section>
   );
 };

@@ -159,6 +159,22 @@
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+    <!-- Critical CSS for above-the-fold content (reduces render blocking) -->
+    <style>
+      :root{--background:0 0% 100%;--foreground:0 0% 10%;--primary:252 100% 65%;--primary-foreground:0 0% 100%;--muted-foreground:0 0% 45%}
+      .dark{--background:0 0% 6%;--foreground:0 0% 92%;--muted-foreground:0 0% 60%}
+      *,::before,::after{box-sizing:border-box;border-width:0;border-style:solid}
+      html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+      body{margin:0;font-family:Inter,system-ui,-apple-system,sans-serif;background-color:hsl(var(--background));color:hsl(var(--foreground));-webkit-font-smoothing:antialiased}
+      #root{min-height:100vh}
+      .min-h-screen{min-height:100vh}
+      .flex{display:flex}.items-center{align-items:center}.justify-between{justify-content:space-between}.justify-center{justify-content:center}
+      .fixed{position:fixed}.top-0{top:0}.left-0{left:0}.right-0{right:0}.z-50{z-index:50}
+      .px-4{padding-left:1rem;padding-right:1rem}.py-3{padding-top:.75rem;padding-bottom:.75rem}
+      .text-center{text-align:center}.font-bold{font-weight:700}
+      .bg-background{background-color:hsl(var(--background))}.text-foreground{color:hsl(var(--foreground))}
+    </style>
   </head>
 
   <body>

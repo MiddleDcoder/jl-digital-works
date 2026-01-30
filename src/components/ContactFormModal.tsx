@@ -98,7 +98,7 @@ export const ContactFormModal = ({ open, onOpenChange }: ContactFormModalProps) 
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: encode({
           'form-name': 'contact',
-          'subject': 'New lead from %{formName} (%{submissionId})',
+          'subject': 'New Lead form submitted from JL DIGITAL WORKS',
           ...sanitizedData,
         }),
       });
@@ -176,7 +176,7 @@ export const ContactFormModal = ({ open, onOpenChange }: ContactFormModalProps) 
             <input
               type="hidden"
               name="subject"
-              value="New lead from %{formName} (%{submissionId})"
+              value="New Lead form submitted from JL DIGITAL WORKS"
             />
 
             <div className="space-y-2">

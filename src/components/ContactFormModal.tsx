@@ -98,6 +98,7 @@ export const ContactFormModal = ({ open, onOpenChange }: ContactFormModalProps) 
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: encode({
           'form-name': 'contact',
+          'subject': 'New lead from %{formName} (%{submissionId})',
           ...sanitizedData,
         }),
       });

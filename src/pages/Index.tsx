@@ -1,12 +1,12 @@
 import { lazy, Suspense } from 'react';
 import { Navbar } from '@/components/Navbar';
 import { Hero } from '@/components/Hero';
-import { Problem } from '@/components/Problem';
-import { Solution } from '@/components/Solution';
-import { Automation } from '@/components/Automation';
-import { Tracking } from '@/components/Tracking';
 
-// Lazy load below-fold sections to reduce initial JS bundle
+// Lazy load all below-fold sections to reduce initial JS bundle
+const Problem = lazy(() => import('@/components/Problem').then(m => ({ default: m.Problem })));
+const Solution = lazy(() => import('@/components/Solution').then(m => ({ default: m.Solution })));
+const Automation = lazy(() => import('@/components/Automation').then(m => ({ default: m.Automation })));
+const Tracking = lazy(() => import('@/components/Tracking').then(m => ({ default: m.Tracking })));
 const Portfolio = lazy(() => import('@/components/Portfolio').then(m => ({ default: m.Portfolio })));
 const Testimonials = lazy(() => import('@/components/Testimonials').then(m => ({ default: m.Testimonials })));
 const FAQ = lazy(() => import('@/components/FAQ').then(m => ({ default: m.FAQ })));
@@ -25,11 +25,11 @@ const Index = () => {
       <Navbar />
       <main id="main-content" className="min-h-screen">
         <Hero />
-        <Problem />
-        <Solution />
-        <Automation />
-        <Tracking />
         <Suspense fallback={null}>
+          <Problem />
+          <Solution />
+          <Automation />
+          <Tracking />
           <Portfolio />
           <Testimonials />
           <FAQ />

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Mail, Send, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
+import { z } from 'zod';
 import {
   Dialog,
   DialogContent,
@@ -11,6 +12,29 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
+
+// Validation schema for contact form
+const contactSchema = z.object({
+  name: z
+    .string()
+    .trim()
+    .min(1, { message: 'Name is required' })
+    .max(100, { message: 'Name must be less than 100 characters' })
+    .regex(/^[a-zA-Z\s\-'.]+$/, { message: 'Name contains invalid characters' }),
+  email: z
+    .string()
+    .trim()
+    .min(1, { message: 'Email is required' })
+    .email({ message: 'Please enter a valid email address' })
+    .max(255, { message: 'Email must be less than 255 characters' }),
+  message: z
+    .string()
+    .trim()
+    .min(1, { message: 'Message is required' })
+    .max(1000, { message: 'Message must be less than 1000 characters' }),
+});
+
+type ContactFormData = z.infer<typeof contactSchema>;
 
 interface ContactFormModalProps {
   open: boolean;
@@ -27,6 +51,7 @@ export const ContactFormModal = ({ open, onOpenChange }: ContactFormModalProps) 
   });
   const [status, setStatus] = useState<FormStatus>('idle');
   const [errorMessage, setErrorMessage] = useState('');
+  const [fieldErrors, setFieldErrors] = useState<Partial<Record<keyof ContactFormData, string>>>({});
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -45,6 +70,27 @@ export const ContactFormModal = ({ open, onOpenChange }: ContactFormModalProps) 
     e.preventDefault();
     setStatus('submitting');
     setErrorMessage('');
+    setFieldErrors({});
+
+    // Validate form data using zod schema
+    const validationResult = contactSchema.safeParse(formData);
+    
+    if (!validationResult.success) {
+      setStatus('error');
+      const errors: Partial<Record<keyof ContactFormData, string>> = {};
+      validationResult.error.errors.forEach((err) => {
+        const field = err.path[0] as keyof ContactFormData;
+        if (!errors[field]) {
+          errors[field] = err.message;
+        }
+      });
+      setFieldErrors(errors);
+      setErrorMessage('Please fix the errors below.');
+      return;
+    }
+
+    // Use validated and sanitized data
+    const sanitizedData = validationResult.data;
 
     try {
       const response = await fetch('/', {
@@ -52,17 +98,18 @@ export const ContactFormModal = ({ open, onOpenChange }: ContactFormModalProps) 
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: encode({
           'form-name': 'contact',
-          ...formData,
+          ...sanitizedData,
         }),
       });
 
       if (response.ok) {
         setStatus('success');
         setFormData({ name: '', email: '', message: '' });
+        setFieldErrors({});
       } else {
         throw new Error('Form submission failed');
       }
-    } catch (error) {
+    } catch {
       setStatus('error');
       setErrorMessage('Something went wrong. Please try again or email directly.');
     }
@@ -71,6 +118,7 @@ export const ContactFormModal = ({ open, onOpenChange }: ContactFormModalProps) 
   const resetForm = () => {
     setStatus('idle');
     setErrorMessage('');
+    setFieldErrors({});
     setFormData({ name: '', email: '', message: '' });
   };
 
@@ -142,7 +190,13 @@ export const ContactFormModal = ({ open, onOpenChange }: ContactFormModalProps) 
                 required
                 disabled={status === 'submitting'}
                 maxLength={100}
+                className={fieldErrors.name ? 'border-destructive' : ''}
+                aria-invalid={!!fieldErrors.name}
+                aria-describedby={fieldErrors.name ? 'name-error' : undefined}
               />
+              {fieldErrors.name && (
+                <p id="name-error" className="text-sm text-destructive">{fieldErrors.name}</p>
+              )}
             </div>
 
             <div className="space-y-2">
@@ -157,7 +211,13 @@ export const ContactFormModal = ({ open, onOpenChange }: ContactFormModalProps) 
                 required
                 disabled={status === 'submitting'}
                 maxLength={255}
+                className={fieldErrors.email ? 'border-destructive' : ''}
+                aria-invalid={!!fieldErrors.email}
+                aria-describedby={fieldErrors.email ? 'email-error' : undefined}
               />
+              {fieldErrors.email && (
+                <p id="email-error" className="text-sm text-destructive">{fieldErrors.email}</p>
+              )}
             </div>
 
             <div className="space-y-2">
@@ -172,7 +232,13 @@ export const ContactFormModal = ({ open, onOpenChange }: ContactFormModalProps) 
                 disabled={status === 'submitting'}
                 rows={4}
                 maxLength={1000}
+                className={fieldErrors.message ? 'border-destructive' : ''}
+                aria-invalid={!!fieldErrors.message}
+                aria-describedby={fieldErrors.message ? 'message-error' : undefined}
               />
+              {fieldErrors.message && (
+                <p id="message-error" className="text-sm text-destructive">{fieldErrors.message}</p>
+              )}
             </div>
 
             {status === 'error' && (

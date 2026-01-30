@@ -5,7 +5,7 @@ const problems = [
   {
     icon: FileQuestion,
     title: "Websites Without Strategy",
-    description: "Your site was built without clear goals or user journeys. It looks fine but fails to guide visitors toward action."
+    description: "Your site lacks a cohesive color palette, brand consistency, and clear structure. Visitors feel confused instead of confident."
   },
   {
     icon: Gauge,

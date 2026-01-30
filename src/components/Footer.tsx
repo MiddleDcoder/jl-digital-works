@@ -30,7 +30,7 @@ export const Footer = () => {
             {/* Logo & Tagline */}
             <div className="flex flex-col items-center md:items-start gap-4">
               <div className="flex items-center gap-3">
-                <img src={logo} alt="JL Digital Works Logo" width="36" height="36" loading="lazy" className="w-9 h-9 object-contain" />
+                <img src={logo} alt="JL Digital Works Logo" width="75" height="45" loading="lazy" className="w-[50px] h-auto object-contain" />
                 <div>
                   <p className="font-display font-bold text-base leading-tight">JL DIGITAL WORKS</p>
                   <p className="text-background/60 text-xs">Web, Automation & Tracking</p>

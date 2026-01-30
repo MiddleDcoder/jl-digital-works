@@ -6,6 +6,42 @@ import { cn } from "@/lib/utils";
 // Format: { THEME_NAME: CSS_SELECTOR }
 const THEMES = { light: "", dark: ".dark" } as const;
 
+// Defense-in-depth: sanitize any runtime-provided color values before injecting into a <style> tag.
+// In this app, chart configs are expected to be static, but this prevents theoretical CSS injection.
+function sanitizeCssVarKey(key: string) {
+  // CSS custom property names allow more, but we intentionally restrict to a safe subset.
+  return key.replace(/[^a-zA-Z0-9_-]/g, "");
+}
+
+function escapeCssAttrValue(value: string) {
+  // Escape for use inside a quoted CSS attribute selector: [data-chart="..."]
+  // (avoid breaking out via quotes/backslashes/newlines)
+  return value.replace(/\\/g, "\\\\").replace(/\n|\r|\f/g, " ").replace(/"/g, '\\"');
+}
+
+function sanitizeCssColor(input: string) {
+  const color = input.trim();
+
+  // Hard-block obvious breakout characters/tokens.
+  if (!color || /[;{}<>]/.test(color)) return "";
+
+  // Allow common safe formats used in design systems.
+  // - hex
+  // - rgb/rgba/hsl/hsla
+  // - var(--token)
+  // - hsl(var(--token))
+  // - named colors (rare, but harmless)
+  const ok =
+    /^(#[0-9A-Fa-f]{3,8})$/.test(color) ||
+    /^rgba?\([^)]*\)$/.test(color) ||
+    /^hsla?\([^)]*\)$/.test(color) ||
+    /^var\(--[a-zA-Z0-9_-]+\)$/.test(color) ||
+    /^hsl\(var\(--[a-zA-Z0-9_-]+\)\)$/.test(color) ||
+    /^[a-zA-Z]+$/.test(color);
+
+  return ok ? color : "";
+}
+
 export type ChartConfig = {
   [k in string]: {
     label?: React.ReactNode;
@@ -71,11 +107,13 @@ const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
         __html: Object.entries(THEMES)
           .map(
             ([theme, prefix]) => `
-${prefix} [data-chart=${id}] {
+${prefix} [data-chart="${escapeCssAttrValue(id)}"] {
 ${colorConfig
   .map(([key, itemConfig]) => {
     const color = itemConfig.theme?.[theme as keyof typeof itemConfig.theme] || itemConfig.color;
-    return color ? `  --color-${key}: ${color};` : null;
+    const sanitizedColor = color ? sanitizeCssColor(color) : "";
+    const safeKey = sanitizeCssVarKey(key);
+    return sanitizedColor && safeKey ? `  --color-${safeKey}: ${sanitizedColor};` : null;
   })
   .join("\n")}
 }

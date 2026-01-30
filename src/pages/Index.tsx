@@ -1,14 +1,17 @@
+import { lazy, Suspense } from 'react';
 import { Navbar } from '@/components/Navbar';
 import { Hero } from '@/components/Hero';
 import { Problem } from '@/components/Problem';
 import { Solution } from '@/components/Solution';
 import { Automation } from '@/components/Automation';
 import { Tracking } from '@/components/Tracking';
-import { Portfolio } from '@/components/Portfolio';
-import { Testimonials } from '@/components/Testimonials';
-import { FAQ } from '@/components/FAQ';
-import { FinalCTA } from '@/components/FinalCTA';
-import { Footer } from '@/components/Footer';
+
+// Lazy load below-fold sections to reduce initial JS bundle
+const Portfolio = lazy(() => import('@/components/Portfolio').then(m => ({ default: m.Portfolio })));
+const Testimonials = lazy(() => import('@/components/Testimonials').then(m => ({ default: m.Testimonials })));
+const FAQ = lazy(() => import('@/components/FAQ').then(m => ({ default: m.FAQ })));
+const FinalCTA = lazy(() => import('@/components/FinalCTA').then(m => ({ default: m.FinalCTA })));
+const Footer = lazy(() => import('@/components/Footer').then(m => ({ default: m.Footer })));
 
 const Index = () => {
   return (
@@ -26,12 +29,16 @@ const Index = () => {
         <Solution />
         <Automation />
         <Tracking />
-        <Portfolio />
-        <Testimonials />
-        <FAQ />
-        <FinalCTA />
+        <Suspense fallback={null}>
+          <Portfolio />
+          <Testimonials />
+          <FAQ />
+          <FinalCTA />
+        </Suspense>
       </main>
-      <Footer />
+      <Suspense fallback={null}>
+        <Footer />
+      </Suspense>
     </>
   );
 };

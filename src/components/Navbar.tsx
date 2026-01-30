@@ -32,6 +32,7 @@ export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('#hero');
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const {
     theme,
@@ -71,7 +72,7 @@ export const Navbar = () => {
           {/* Logo */}
           <a href="#hero" className="flex items-center gap-3">
             <img src={logo} alt="JL Digital Works Logo" width="75" height="45" loading="eager" className="w-[50px] h-auto object-contain" />
-            <span className="font-display font-bold text-lg text-foreground hidden sm:block">JL DIGITAL WORKS</span>
+            <span className="font-display font-bold text-xs sm:text-lg text-foreground">JL DIGITAL WORKS</span>
           </a>
 
           {/* Desktop Navigation */}
@@ -118,14 +119,14 @@ export const Navbar = () => {
         {isOpen && <div className="md:hidden absolute top-full left-0 right-0 bg-background border-b border-border shadow-lg animate-fade-in">
             <div className="flex flex-col py-4 px-4">
               {navLinks.map(link => 'dropdown' in link ? <div key={link.label} className="flex flex-col">
-                    <button onClick={() => setDropdownOpen(!dropdownOpen)} className="py-3 px-4 text-foreground font-medium hover:bg-secondary rounded-lg transition-colors flex items-center justify-between">
+                    <button onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)} className="py-3 px-4 text-foreground font-medium hover:bg-secondary rounded-lg transition-colors flex items-center justify-between">
                       {link.label}
-                      <ChevronDown className={`w-4 h-4 transition-transform ${dropdownOpen ? 'rotate-180' : ''}`} />
+                      <ChevronDown className={`w-4 h-4 transition-transform ${mobileDropdownOpen ? 'rotate-180' : ''}`} />
                     </button>
-                    {dropdownOpen && <div className="pl-4">
+                    {mobileDropdownOpen && <div className="pl-4">
                         {link.dropdown.map(subLink => <a key={subLink.href} href={subLink.href} onClick={() => {
                 setIsOpen(false);
-                setDropdownOpen(false);
+                setMobileDropdownOpen(false);
               }} className="py-2.5 px-4 text-muted-foreground font-medium hover:bg-secondary rounded-lg transition-colors block">
                             {subLink.label}
                           </a>)}

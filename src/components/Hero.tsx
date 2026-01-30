@@ -1,8 +1,5 @@
 import { ArrowRight, Play, Star, Code, Zap, BarChart3 } from 'lucide-react';
-import logo from '@/assets/jldigitalworks-logo.png';
-
-// Use public path for LCP image to enable preloading in HTML
-const photo = "/jla-photo.webp";
+import photo from '@/assets/jla-profile.webp';
 
 export const Hero = () => {
   return <section id="hero" className="min-h-screen flex flex-col justify-center relative overflow-hidden bg-background pt-24 pb-8" aria-labelledby="hero-heading">

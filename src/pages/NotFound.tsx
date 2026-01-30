@@ -6,7 +6,10 @@ const NotFound = () => {
   const location = useLocation();
 
   useEffect(() => {
-    console.error("404 Error: User attempted to access non-existent route:", location.pathname);
+    // Only log in development mode to avoid exposing route information
+    if (import.meta.env.DEV) {
+      console.error("404 Error: User attempted to access non-existent route:", location.pathname);
+    }
     
     // Add noindex meta tag for 404 pages
     const metaRobots = document.createElement('meta');

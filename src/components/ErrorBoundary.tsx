@@ -19,7 +19,11 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('Uncaught error:', error, errorInfo);
+    // Only log detailed errors in development mode
+    if (import.meta.env.DEV) {
+      console.error('Uncaught error:', error, errorInfo);
+    }
+    // In production, you could send to an error tracking service here
   }
 
   public render() {

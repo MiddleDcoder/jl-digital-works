@@ -69,8 +69,8 @@ export const Navbar = () => {
       <nav className="container-custom mx-auto px-4 md:px-8 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <a href="#hero" className="flex items-center gap-2">
-            <img src={logo} alt="JL Digital Works Logo" width="36" height="36" loading="eager" className="w-9 h-9 object-contain" />
+          <a href="#hero" className="flex items-center gap-3">
+            <img src={logo} alt="JL Digital Works Logo" width="75" height="45" loading="eager" className="w-[50px] h-auto object-contain" />
             <span className="font-display font-bold text-lg text-foreground hidden sm:block">JL DIGITAL WORKS</span>
           </a>
 

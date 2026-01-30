@@ -159,6 +159,16 @@
   </head>
 
   <body>
+    <!-- Hidden form for Netlify form detection (required for JS-rendered forms) -->
+    <form name="contact" netlify netlify-honeypot="bot-field" hidden>
+      <input name="form-name" type="hidden" value="contact" />
+      <input name="bot-field" type="hidden" />
+      <input name="subject" type="hidden" />
+      <input name="name" type="text" />
+      <input name="email" type="email" />
+      <textarea name="message"></textarea>
+    </form>
+    
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

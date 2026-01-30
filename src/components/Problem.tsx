@@ -1,7 +1,17 @@
-import { XCircle, TrendingDown, AlertTriangle, Target } from 'lucide-react';
+import { XCircle, TrendingDown, AlertTriangle, Target, FileQuestion, Gauge } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const problems = [
+  {
+    icon: FileQuestion,
+    title: "Websites Without Strategy",
+    description: "Your site was built without clear goals or user journeys. It looks fine but fails to guide visitors toward action."
+  },
+  {
+    icon: Gauge,
+    title: "Slow & Outdated Performance",
+    description: "Your website loads slowly and hurts Core Web Vitals. Poor speed kills SEO rankings and drives visitors away."
+  },
   {
     icon: XCircle,
     title: "Traffic Without Conversions",

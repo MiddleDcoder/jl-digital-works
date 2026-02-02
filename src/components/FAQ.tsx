@@ -1,5 +1,6 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+import { useCalEmbed } from '@/hooks/useCalEmbed';
 const faqs = [{
   question: "What services do you offer?",
   answer: "I offer three core services: high-converting website design and development, GoHighLevel systems and automation, and analytics and tracking infrastructure. These can be combined as a complete digital system or delivered individually based on what your business needs."
@@ -35,6 +36,7 @@ export const FAQ = () => {
   } = useScrollAnimation({
     threshold: 0.1
   });
+  useCalEmbed();
   return <section ref={ref as React.RefObject<HTMLElement>} id="faq" className="section-padding bg-section-alt" aria-labelledby="faq-heading">
       <div className="container-custom mx-auto">
         {/* Section Header */}
@@ -68,9 +70,14 @@ export const FAQ = () => {
         {/* Still Have Questions */}
         <div className={`mt-10 text-center transition-all duration-700 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <p className="text-muted-foreground mb-4">Still have questions? Let's talk.</p>
-          <a className="inline-flex items-center gap-2 px-6 py-3 bg-secondary text-foreground rounded-full font-medium hover:bg-secondary/80 transition-colors border border-border" href="https://cal.com/jl-digital-works">
+          <button 
+            data-cal-namespace="30min"
+            data-cal-link="jl-digital-works/30min"
+            data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'
+            className="inline-flex items-center gap-2 px-6 py-3 bg-secondary text-foreground rounded-full font-medium hover:bg-secondary/80 transition-colors border border-border"
+          >
             Book a Free Call
-          </a>
+          </button>
         </div>
       </div>
     </section>;

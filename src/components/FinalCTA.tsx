@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { Mail, MessageCircle, Calendar } from 'lucide-react';
 import { ContactFormModal } from './ContactFormModal';
+import { useCalEmbed } from '@/hooks/useCalEmbed';
 
 export const FinalCTA = () => {
   const [contactModalOpen, setContactModalOpen] = useState(false);
+  useCalEmbed();
 
   return (
     <section
@@ -37,15 +39,15 @@ export const FinalCTA = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-              <a
-                href="https://cal.com/jl-digital-works"
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                data-cal-namespace="30min"
+                data-cal-link="jl-digital-works/30min"
+                data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'
                 className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-primary text-primary-foreground rounded-full font-semibold text-lg hover:opacity-90 transition-all hover:scale-105 shadow-lg shadow-primary/30"
               >
                 <Calendar className="w-5 h-5" />
                 Book a Call
-              </a>
+              </button>
               <a
                 href="https://wa.me/639773155072"
                 target="_blank"

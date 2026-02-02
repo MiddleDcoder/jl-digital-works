@@ -1,90 +1,84 @@
 
-# Fix Netlify Forms Detection for React Contact Form
+# Cal.com Embed Integration Plan
 
-## Root Cause Analysis
+## Overview
+Replace the external Cal.com links with an embedded booking experience using the `@calcom/embed-react` package. This will keep users on your site instead of redirecting them to cal.com.
 
-The contact form is not working because **Netlify's build system cannot detect JavaScript-rendered forms**. 
-
-When Netlify builds your site, it parses the static HTML files to find forms with `data-netlify="true"`. Since your contact form is rendered by React at runtime (not in the static HTML), the Netlify build bot never sees it and therefore never registers it for form handling.
-
-This is why you're getting the "Something went wrong" error - the form submission is being sent to Netlify, but Netlify doesn't recognize the form because it was never detected during build time.
-
-## The Solution
-
-According to Netlify's official documentation, for JavaScript-rendered forms you must add a **hidden static HTML form** that the build system can detect. This form must:
-
-1. Be placed in a static HTML file (like `index.html`)
-2. Have `data-netlify="true"` attribute
-3. Have the same `name` attribute as your JavaScript form
-4. Include all input fields with matching `name` attributes
-5. Be hidden from users (using CSS `hidden` attribute)
-
----
+## Current State
+There are 3 booking-related buttons across the site:
+1. **Hero section** - "Book a Call" that scrolls to contact section
+2. **FinalCTA section** - "Book a Call" that opens cal.com in new tab
+3. **FAQ section** - "Book a Free Call" that opens cal.com in new tab
 
 ## Implementation Steps
 
-### Step 1: Add Hidden Static Form to index.html
+### Step 1: Install the Cal.com Embed Package
+Add `@calcom/embed-react` to the project dependencies.
 
-Add a hidden HTML form inside the `<body>` tag of `index.html` that mirrors the React form structure:
+### Step 2: Create a Reusable Cal.com Button Hook
+Create a new file `src/hooks/useCalEmbed.ts` that:
+- Imports `getCalApi` from `@calcom/embed-react`
+- Initializes the Cal.com API with the "30min" namespace on mount
+- Configures the UI with month view layout
 
-**File: `index.html`**
+### Step 3: Update FinalCTA Component
+Replace the external link with a button that:
+- Uses the Cal.com data attributes
+- Triggers the embedded modal on click
+- Maintains existing styling
 
-```html
-<body>
-  <!-- Hidden form for Netlify form detection (required for JS-rendered forms) -->
-  <form name="contact" netlify netlify-honeypot="bot-field" hidden>
-    <input name="form-name" type="hidden" value="contact" />
-    <input name="bot-field" type="hidden" />
-    <input name="subject" type="hidden" />
-    <input name="name" type="text" />
-    <input name="email" type="email" />
-    <textarea name="message"></textarea>
-  </form>
-  
-  <div id="root"></div>
-  <script type="module" src="/src/main.tsx"></script>
-</body>
-```
+### Step 4: Update FAQ Component  
+Replace the external link with a styled button that:
+- Uses Cal.com data attributes
+- Opens the embedded booking modal
+- Keeps the same visual appearance
 
-### Step 2: No Changes Needed to ContactFormModal.tsx
-
-The React component already has:
-- The hidden `form-name` input
-- The honeypot field (`bot-field`)
-- Correct AJAX submission with URL-encoded body
-- All form fields with proper `name` attributes
-
-### Step 3: Redeploy the Site
-
-After adding the hidden form to `index.html`, you must redeploy your site for Netlify to detect the form during build time.
+### Step 5: Update Hero Component (Optional)
+The Hero "Book a Call" currently scrolls to contact. You may want to:
+- Keep it as-is (scrolls to FinalCTA where Cal.com embed is)
+- Or convert it to directly open the Cal.com modal
 
 ---
 
-## Why This Works
+## Technical Details
 
-```text
-+------------------+     +-------------------+     +------------------+
-| Build Time       |     | Runtime           |     | Form Submission  |
-+------------------+     +-------------------+     +------------------+
-| Netlify parses   |     | React renders     |     | AJAX POST to /   |
-| index.html       | --> | ContactFormModal  | --> | with form-name   |
-| Finds hidden     |     | Users interact    |     | Netlify matches  |
-| form "contact"   |     | with visible form |     | to detected form |
-| Registers it     |     |                   |     | Submission saved |
-+------------------+     +-------------------+     +------------------+
+### New Hook: `src/hooks/useCalEmbed.ts`
+```typescript
+import { getCalApi } from "@calcom/embed-react";
+import { useEffect } from "react";
+
+export const useCalEmbed = () => {
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi({ namespace: "30min" });
+      cal("ui", { 
+        hideEventTypeDetails: false, 
+        layout: "month_view" 
+      });
+    })();
+  }, []);
+};
 ```
 
-The hidden form tells Netlify's build bot: "There will be a form called 'contact' with these fields." When the React form submits via AJAX with `form-name=contact`, Netlify knows how to handle it.
+### Button Data Attributes
+All booking buttons will need these data attributes:
+```jsx
+data-cal-namespace="30min"
+data-cal-link="jl-digital-works/30min"
+data-cal-config='{"layout":"month_view","useSlotsViewOnSmallScreen":"true"}'
+```
 
----
-
-## Summary of Changes
-
+### Files to Modify
 | File | Change |
 |------|--------|
-| `index.html` | Add hidden static form for Netlify detection |
+| `package.json` | Add `@calcom/embed-react` dependency |
+| `src/hooks/useCalEmbed.ts` | New file - Cal.com initialization hook |
+| `src/components/FinalCTA.tsx` | Convert `<a>` to `<button>` with Cal data attributes |
+| `src/components/FAQ.tsx` | Convert `<a>` to `<button>` with Cal data attributes |
+| `src/App.tsx` | Initialize Cal.com embed at app level |
 
-After implementation, remember to:
-1. Commit and push the changes
-2. Trigger a new deploy on Netlify
-3. Test the form submission again
+## Benefits
+- Users stay on your site during booking
+- Faster booking experience (no page redirect)
+- Better conversion tracking
+- Consistent brand experience

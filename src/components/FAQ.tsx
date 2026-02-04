@@ -3,7 +3,7 @@ import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { useCalEmbed } from '@/hooks/useCalEmbed';
 const faqs = [{
   question: "What services do you offer?",
-  answer: "I offer three core services: high-converting website design and development, GoHighLevel systems and automation, and analytics and tracking infrastructure. These can be combined as a complete digital system or delivered individually based on what your business needs."
+  answer: "I offer three core services: high-converting website design and development, GoHighLevel systems and automation, and analytics and tracking infrastructure. I also work with Automation in another platform for like Zapier to automation business needs. These can be combined as a complete digital system or delivered individually based on what your business needs."
 }, {
   question: "Do you only work with WordPress?",
   answer: "WordPress is my primary specialization for custom websites. However, I also work with other website platforms when the project requires it. The focus is always on choosing the right tool for your specific goals."

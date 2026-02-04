@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { HelpCircle, X, Mail, Calendar, Phone, MessageCircle } from 'lucide-react';
 import { ContactFormModal } from './ContactFormModal';
 import { useCalEmbed } from '@/hooks/useCalEmbed';
-import logo from '@/assets/jl-digital-works-logo.webp';
+import logo from '@/assets/floating-logo-banner.webp';
 
 export const FloatingActions = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -78,7 +78,7 @@ export const FloatingActions = () => {
               <img 
                 src={logo} 
                 alt="JL Digital Works" 
-                className="h-12 w-auto opacity-80"
+                className="h-24 w-auto opacity-80"
               />
             </div>
 

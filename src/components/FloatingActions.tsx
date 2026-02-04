@@ -7,6 +7,7 @@ import logo from '@/assets/jl-digital-works-logo.webp';
 export const FloatingActions = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [contactModalOpen, setContactModalOpen] = useState(false);
+  const [tooltipDismissed, setTooltipDismissed] = useState(false);
   useCalEmbed();
 
   const handleContactClick = () => {
@@ -58,8 +59,8 @@ export const FloatingActions = () => {
       <div
         className={`fixed z-50 transition-all duration-300 ease-out ${
           isOpen 
-            ? 'bottom-4 right-4 left-4 md:left-auto md:w-[360px] opacity-100 translate-y-0' 
-            : 'bottom-6 right-6 opacity-0 translate-y-4 pointer-events-none'
+            ? 'bottom-4 left-4 right-4 md:right-auto md:w-[360px] opacity-100 translate-y-0' 
+            : 'bottom-6 left-6 opacity-0 translate-y-4 pointer-events-none'
         }`}
       >
         <div className="bg-card rounded-3xl shadow-2xl overflow-hidden border border-border">
@@ -151,8 +152,8 @@ export const FloatingActions = () => {
         onClick={() => setIsOpen(!isOpen)}
         className={`fixed z-50 w-14 h-14 rounded-full shadow-lg transition-all duration-300 ease-out flex items-center justify-center ${
           isOpen
-            ? 'bottom-6 right-6 bg-foreground hover:bg-foreground/90'
-            : 'bottom-6 right-6 bg-primary/80 hover:bg-primary hover:scale-105'
+            ? 'bottom-6 left-6 bg-foreground hover:bg-foreground/90'
+            : 'bottom-6 left-6 bg-primary/80 hover:bg-primary hover:scale-105'
         }`}
         aria-label={isOpen ? 'Close actions panel' : 'Open actions panel'}
         aria-expanded={isOpen}
@@ -164,11 +165,23 @@ export const FloatingActions = () => {
         )}
       </button>
 
-      {/* Tooltip on hover (closed state only) */}
-      {!isOpen && (
-        <div className="fixed bottom-7 right-24 z-50 hidden md:block pointer-events-none">
-          <div className="bg-card px-4 py-2 rounded-lg shadow-lg border border-border text-sm font-medium text-foreground opacity-0 group-hover:opacity-100 transition-opacity">
-            Book Now
+      {/* Persistent Tooltip (closed state only) */}
+      {!isOpen && !tooltipDismissed && (
+        <div className="fixed bottom-7 left-24 z-50 flex items-center gap-1">
+          <div className="relative bg-card pl-4 pr-2 py-2 rounded-xl shadow-lg border border-border flex items-center gap-2">
+            <span className="text-sm font-medium text-foreground whitespace-nowrap">Book Now</span>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setTooltipDismissed(true);
+              }}
+              className="w-5 h-5 rounded-full bg-foreground/80 hover:bg-foreground flex items-center justify-center transition-colors"
+              aria-label="Dismiss tooltip"
+            >
+              <X className="w-3 h-3 text-background" />
+            </button>
+            {/* Arrow pointing to button */}
+            <div className="absolute -left-2 top-1/2 -translate-y-1/2 w-0 h-0 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-r-[8px] border-r-card" />
           </div>
         </div>
       )}

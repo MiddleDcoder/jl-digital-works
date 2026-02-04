@@ -74,7 +74,7 @@ export const FloatingActions = () => {
           {/* Body */}
           <div className="p-6 bg-muted/30">
             {/* Logo */}
-            <div className="flex justify-center mb-6">
+            <div className="flex justify-center mb-6 bg-gradient-to-br from-[#1c1c1c] to-[#1c1c1c]/90 rounded-3xl p-4">
               <img 
                 src={logo} 
                 alt="JL Digital Works" 

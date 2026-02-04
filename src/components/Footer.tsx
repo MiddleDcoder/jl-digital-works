@@ -1,5 +1,5 @@
 import { Linkedin, MessageCircle, Mail, Heart, ArrowUp } from 'lucide-react';
-import logo from '@/assets/jl-logo-full.png';
+import logo from '@/assets/jl-logo-icon.png';
 import { useEffect, useState } from 'react';
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -29,7 +29,13 @@ export const Footer = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8 mb-12">
             {/* Logo & Tagline */}
             <div className="flex flex-col items-center md:items-start gap-4">
-              <img src={logo} alt="JL Digital Works - Websites, Automation & Analytics" width="280" height="80" loading="lazy" className="h-auto w-[240px] md:w-[280px] object-contain" />
+              <div className="flex items-center gap-3">
+                <img src={logo} alt="JL Digital Works Logo" width="40" height="40" loading="lazy" className="w-[40px] h-auto object-contain" />
+                <div>
+                  <p className="font-display font-bold text-base leading-tight">JL DIGITAL WORKS</p>
+                  <p className="text-background/60 text-xs">Web, Automation & Tracking</p>
+                </div>
+              </div>
               <p className="text-background/60 text-sm max-w-xs text-center md:text-left leading-relaxed">
                 Freelance consultant building high-converting websites, GoHighLevel systems, and analytics infrastructure for businesses worldwide.
               </p>

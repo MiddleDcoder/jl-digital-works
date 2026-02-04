@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Menu, X, Sun, Moon, ArrowRight, ChevronDown } from 'lucide-react';
 import { useTheme } from '@/contexts/ThemeContext';
-import logo from '@/assets/jl-logo-icon.png';
+import logo from '@/assets/jl-digital-works-logo.webp';
 const navLinks = [{
   href: '#hero',
   label: 'Home'

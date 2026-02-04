@@ -1,5 +1,5 @@
 import { Linkedin, MessageCircle, Mail, Heart, ArrowUp } from 'lucide-react';
-import logo from '@/assets/jl-logo-icon.png';
+import logo from '@/assets/jl-digital-works-logo.webp';
 import { useEffect, useState } from 'react';
 export const Footer = () => {
   const currentYear = new Date().getFullYear();

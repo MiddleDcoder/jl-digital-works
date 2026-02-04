@@ -34,7 +34,7 @@ export const FloatingActions = () => {
     {
       icon: Phone,
       label: 'Call Us',
-      href: 'tel:+639773155072',
+      href: 'tel:+639121778824',
     },
     {
       icon: MessageCircle,

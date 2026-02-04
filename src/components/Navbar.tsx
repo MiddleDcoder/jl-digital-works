@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Menu, X, Sun, Moon, ArrowRight, ChevronDown } from 'lucide-react';
 import { useTheme } from '@/contexts/ThemeContext';
-import logo from '@/assets/jldigitalworks-75x45.webp';
+import logo from '@/assets/jl-logo-icon.png';
 const navLinks = [{
   href: '#hero',
   label: 'Home'
@@ -71,7 +71,7 @@ export const Navbar = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <a href="#hero" className="flex items-center gap-3">
-            <img src={logo} alt="JL Digital Works Logo" width="75" height="45" loading="eager" className="w-[50px] h-auto object-contain" />
+            <img src={logo} alt="JL Digital Works Logo" width="40" height="40" loading="eager" className="w-[40px] h-auto object-contain" />
             <span className="font-display font-bold text-xs sm:text-lg text-foreground">JL DIGITAL WORKS</span>
           </a>
 

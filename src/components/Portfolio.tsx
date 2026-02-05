@@ -1,42 +1,56 @@
 import { ArrowUpRight, ExternalLink } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
+// Portfolio thumbnail images - replace with real screenshots later
+import jamesChristianImg from '@/assets/portfolio/james-christian-cosmetics.webp';
+import vampireFaceliftsImg from '@/assets/portfolio/vampire-facelifts.webp';
+import wizardTowerImg from '@/assets/portfolio/wizard-tower.webp';
+import beautyMedSupplyImg from '@/assets/portfolio/beauty-med-supply.webp';
+import classicVinylWrapsImg from '@/assets/portfolio/classic-vinyl-wraps.webp';
+import paraguayPathwaysImg from '@/assets/portfolio/paraguay-pathways.webp';
+
 const projects = [
   {
     title: "James Christian Cosmetics",
     description: "Full website with booking integration, blogs, SEO optimization, lead capture, and comprehensive service pages.",
     url: "https://jameschristiancosmetics.com",
-    category: "Web Design & Development"
+    category: "Web Design & Development",
+    thumbnail: jamesChristianImg
   },
   {
     title: "Vampire Facelifts",
     description: "High-converting landing page designed for maximum lead capture and clear call-to-actions.",
     url: "https://vampirefacelifts.com",
-    category: "Converting Website"
+    category: "Converting Website",
+    thumbnail: vampireFaceliftsImg
   },
   {
     title: "Wizard Tower",
     description: "A Custom WordPress website built for performance, scalability, and smooth user experience, designed to support growing digital products and content.",
     url: "https://wizardtower.com",
-    category: "WordPress Development"
+    category: "WordPress Development",
+    thumbnail: wizardTowerImg
   },
   {
     title: "Beauty Med Supply",
     description: "A modern e-commerce website for medical and beauty supplies, designed for seamless product browsing, secure checkout, and customer trust (In development)",
     url: "https://beautymedsupply.com/",
-    category: "E-commerce Website"
+    category: "E-commerce Website",
+    thumbnail: beautyMedSupplyImg
   },
   {
     title: "Classic Vinyl Wraps",
     description: "High-converting landing page showcasing premium vehicle wrap services with bold visuals and clear CTAs.",
     url: "https://classicvinylwraps.com/",
-    category: "Landing Page Design"
+    category: "Landing Page Design",
+    thumbnail: classicVinylWrapsImg
   },
   {
     title: "Paraguay Pathways",
     description: "Engaging subscription e-commerce site with compelling product presentation.",
     url: "https://paraguaypathways.com/",
-    category: "Tracking Analytics + GHL & Automation"
+    category: "Tracking Analytics + GHL & Automation",
+    thumbnail: paraguayPathwaysImg
   }
 ];
 
@@ -76,7 +90,19 @@ export const Portfolio = () => {
               className={`group block transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
               style={{ transitionDelay: `${(index + 1) * 100}ms` }}
             >
-              <div className="p-6 bg-card rounded-2xl border border-border hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 h-full flex flex-col">
+              <div className="bg-card rounded-2xl border border-border hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 h-full flex flex-col overflow-hidden">
+                {/* Thumbnail Image */}
+                <div className="relative aspect-video overflow-hidden">
+                  <img
+                    src={project.thumbnail}
+                    alt={`${project.title} website screenshot`}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-card/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+
+                <div className="p-6 flex flex-col flex-grow">
                 {/* Category & Link Icon */}
                 <div className="flex items-center justify-between mb-4">
                   <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium">
@@ -94,6 +120,7 @@ export const Portfolio = () => {
                 <p className="text-muted-foreground text-sm leading-relaxed mb-4 flex-grow">
                   {project.description}
                 </p>
+                </div>
               </div>
             </a>
           ))}

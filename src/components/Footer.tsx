@@ -65,7 +65,7 @@ export const Footer = () => {
                 <a href="https://wa.me/639773155072" target="_blank" rel="noopener noreferrer" className="p-2.5 rounded-full bg-background/10 hover:bg-primary hover:text-primary-foreground transition-all" aria-label="WhatsApp">
                   <MessageCircle className="w-4 h-4" />
                 </a>
-                <a href="mailto:jlawebdev05@gmail.com" className="p-2.5 rounded-full bg-background/10 hover:bg-primary hover:text-primary-foreground transition-all" aria-label="Email">
+                <a href="mailto:contact@jldigitalworks.com" className="p-2.5 rounded-full bg-background/10 hover:bg-primary hover:text-primary-foreground transition-all" aria-label="Email">
                   <Mail className="w-4 h-4" />
                 </a>
               </div>

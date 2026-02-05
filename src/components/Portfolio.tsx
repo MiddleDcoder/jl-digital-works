@@ -2,12 +2,12 @@ import { ArrowUpRight, ExternalLink } from 'lucide-react';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 // Portfolio thumbnail images - replace with real screenshots later
-import jamesChristianImg from '@/assets/portfolio/james-christian-cosmetics.webp';
-import vampireFaceliftsImg from '@/assets/portfolio/vampire-facelifts.webp';
-import wizardTowerImg from '@/assets/portfolio/wizard-tower.webp';
-import beautyMedSupplyImg from '@/assets/portfolio/beauty-med-supply.webp';
-import classicVinylWrapsImg from '@/assets/portfolio/classic-vinyl-wraps.webp';
-import paraguayPathwaysImg from '@/assets/portfolio/paraguay-pathways.webp';
+import jamesChristianImg from '@/assets/portfolio/james-christian-preview.webp';
+import vampireFaceliftsImg from '@/assets/portfolio/vampire-facelifts-preview.webp';
+import wizardTowerImg from '@/assets/portfolio/wizard-tower-preview.webp';
+import beautyMedSupplyImg from '@/assets/portfolio/beauty-med-supply-preview.webp';
+import classicVinylWrapsImg from '@/assets/portfolio/classic-vinyl-wraps-preview.webp';
+import paraguayPathwaysImg from '@/assets/portfolio/paraguay-pathways-tracking-preview.webp';
 
 const projects = [
   {

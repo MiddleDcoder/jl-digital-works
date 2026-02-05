@@ -167,9 +167,9 @@ export const FloatingActions = () => {
 
       {/* Persistent Tooltip (closed state only) */}
       {!isOpen && !tooltipDismissed && (
-        <div className="fixed bottom-7 left-24 z-50 flex items-center gap-1">
+        <div className="fixed bottom-7 left-24 z-50 flex items-center gap-1 animate-[float-subtle_2s_ease-in-out_infinite]">
           <div className="relative bg-card pl-4 pr-2 py-2 rounded-xl shadow-lg border border-border flex items-center gap-2">
-            <span className="text-sm font-medium text-foreground whitespace-nowrap animate-[float-subtle_2s_ease-in-out_infinite]">Book Now</span>
+            <span className="text-sm font-medium text-foreground whitespace-nowrap">Book Now</span>
             <button
               onClick={(e) => {
                 e.stopPropagation();

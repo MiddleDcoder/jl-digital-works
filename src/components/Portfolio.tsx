@@ -11,18 +11,25 @@ import paraguayPathwaysImg from '@/assets/portfolio/paraguay-pathways-tracking-p
 
 const projects = [
   {
-    title: "James Christian Cosmetics",
-    description: "Full website with booking integration, blogs, SEO optimization, lead capture, and comprehensive service pages.",
-    url: "https://jameschristiancosmetics.com",
-    category: "Web Design & Development",
-    thumbnail: jamesChristianImg
-  },
-  {
     title: "Vampire Facelifts",
     description: "High-converting landing page designed for maximum lead capture and clear call-to-actions.",
     url: "https://vampirefacelifts.com",
     category: "Converting Website",
     thumbnail: vampireFaceliftsImg
+  },
+  {
+    title: "Classic Vinyl Wraps",
+    description: "High-converting landing page showcasing premium vehicle wrap services with bold visuals and clear CTAs.",
+    url: "https://classicvinylwraps.com/",
+    category: "Landing Page Design",
+    thumbnail: classicVinylWrapsImg
+  },
+  {
+    title: "Paraguay Pathways",
+    description: "Full tracking analytics implementation with GoHighLevel CRM integration and marketing automation workflows.",
+    url: "https://paraguaypathways.com/",
+    category: "Tracking Analytics + GHL & Automation",
+    thumbnail: paraguayPathwaysImg
   },
   {
     title: "Wizard Tower",
@@ -39,18 +46,11 @@ const projects = [
     thumbnail: beautyMedSupplyImg
   },
   {
-    title: "Classic Vinyl Wraps",
-    description: "High-converting landing page showcasing premium vehicle wrap services with bold visuals and clear CTAs.",
-    url: "https://classicvinylwraps.com/",
-    category: "Landing Page Design",
-    thumbnail: classicVinylWrapsImg
-  },
-  {
-    title: "Paraguay Pathways",
-    description: "Engaging subscription e-commerce site with compelling product presentation.",
-    url: "https://paraguaypathways.com/",
-    category: "Tracking Analytics + GHL & Automation",
-    thumbnail: paraguayPathwaysImg
+    title: "James Christian Cosmetics",
+    description: "Full website with booking integration, blogs, SEO optimization, lead capture, and comprehensive service pages.",
+    url: "https://jameschristiancosmetics.com",
+    category: "Web Design & Development",
+    thumbnail: jamesChristianImg
   }
 ];
 

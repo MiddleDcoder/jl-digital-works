@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { HelpCircle, X, Mail, Calendar, Phone, MessageCircle } from 'lucide-react';
 import { ContactFormModal } from './ContactFormModal';
 import { useCalEmbed } from '@/hooks/useCalEmbed';
@@ -8,7 +8,20 @@ export const FloatingActions = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [contactModalOpen, setContactModalOpen] = useState(false);
   const [tooltipDismissed, setTooltipDismissed] = useState(false);
+  const [pastHero, setPastHero] = useState(false);
   useCalEmbed();
+
+  useEffect(() => {
+    const hero = document.getElementById('hero');
+    if (!hero) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setPastHero(!entry.isIntersecting),
+      { threshold: 0.1 }
+    );
+    observer.observe(hero);
+    return () => observer.disconnect();
+  }, []);
 
   const handleContactClick = () => {
     setIsOpen(false);
@@ -150,7 +163,9 @@ export const FloatingActions = () => {
       {/* Floating Trigger Button / Close Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`fixed z-50 w-14 h-14 rounded-full shadow-lg transition-all duration-300 ease-out flex items-center justify-center ${
+        className={`fixed z-50 w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 ease-out ${
+          !pastHero && !isOpen ? 'opacity-0 pointer-events-none translate-y-4' : ''
+        } ${
           isOpen
             ? 'bottom-6 left-6 bg-foreground hover:bg-foreground/90'
             : 'bottom-6 left-6 bg-primary/80 hover:bg-primary hover:scale-105'
@@ -166,7 +181,7 @@ export const FloatingActions = () => {
       </button>
 
       {/* Persistent Tooltip (closed state only) */}
-      {!isOpen && !tooltipDismissed && (
+      {!isOpen && !tooltipDismissed && pastHero && (
         <div className="fixed bottom-7 left-24 z-50 flex items-center gap-1 animate-[float-subtle_2s_ease-in-out_infinite]">
           <div className="relative bg-card pl-4 pr-2 py-2 rounded-xl shadow-lg border border-border flex items-center gap-2">
             <span className="text-sm font-medium text-foreground whitespace-nowrap">Book Now</span>

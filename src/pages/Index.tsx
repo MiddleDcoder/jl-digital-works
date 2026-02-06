@@ -27,14 +27,16 @@ const Index = () => {
       <main id="main-content" className="min-h-screen">
         <Hero />
         <Suspense fallback={null}>
-          <Problem />
-          <Solution />
-          <Automation />
-          <Tracking />
-          <Portfolio />
-          <Testimonials />
-          <FAQ />
-          <FinalCTA />
+          <div style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 3000px' }}>
+            <Problem />
+            <Solution />
+            <Automation />
+            <Tracking />
+            <Portfolio />
+            <Testimonials />
+            <FAQ />
+            <FinalCTA />
+          </div>
         </Suspense>
       </main>
       <Suspense fallback={null}>

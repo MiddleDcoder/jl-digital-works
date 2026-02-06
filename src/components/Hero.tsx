@@ -16,13 +16,13 @@ export const Hero = () => {
             </div>
 
             {/* Main Headline */}
-            <h1 id="hero-heading" className="font-display text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 animate-in animate-delay-100 leading-[1.1]" itemProp="description">
+            <h1 id="hero-heading" className="font-display text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 leading-[1.1]" itemProp="description">
               <span itemProp="name" className="sr-only">Jhun Lorenz A. Asna - </span>Websites, Automation, and Tracking{' '}
               <span className="gradient-text">Built to Convert</span>
             </h1>
 
             {/* Value Proposition */}
-            <p className="text-muted-foreground text-lg md:text-xl max-w-xl mb-8 animate-in animate-delay-200 mx-auto lg:mx-0 leading-relaxed">
+            <p className="text-muted-foreground text-lg md:text-xl max-w-xl mb-8 mx-auto lg:mx-0 leading-relaxed">
               I build high-converting websites, GoHighLevel systems, and analytics infrastructure that turn visitors into leads and show you exactly what is working. 
             </p>
 
@@ -57,14 +57,14 @@ export const Hero = () => {
           </div>
 
           {/* Right Content - Photo */}
-          <div className="order-1 lg:order-2 relative flex justify-center lg:justify-end animate-in animate-delay-200">
+          <div className="order-1 lg:order-2 relative flex justify-center lg:justify-end">
             {/* Background Shapes */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[340px] md:w-[380px] md:h-[430px] lg:w-[420px] lg:h-[480px] bg-gradient-to-br from-primary/20 to-primary/5 rounded-[40px] rotate-6" />
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[340px] md:w-[380px] md:h-[430px] lg:w-[420px] lg:h-[480px] border border-primary/20 rounded-[40px] -rotate-3" />
 
             {/* Photo */}
             <div className="relative z-10">
-              <img src={photo} alt="Jhun Lorenz A. Asna - Freelance Web Systems Consultant" loading="eager" fetchPriority="high" decoding="async" className="w-[280px] h-[320px] md:w-[350px] md:h-[400px] lg:w-[400px] lg:h-[460px] object-cover object-top rounded-3xl shadow-2xl" />
+              <img src={photo} alt="Jhun Lorenz A. Asna - Freelance Web Systems Consultant" width="280" height="320" loading="eager" fetchPriority="high" decoding="async" className="w-[280px] h-[320px] md:w-[350px] md:h-[400px] lg:w-[400px] lg:h-[460px] object-cover object-top rounded-3xl shadow-2xl" />
 
               {/* Stats Badge */}
               <div className="absolute -bottom-4 -left-4 md:bottom-4 md:-left-8 z-20 px-5 py-3 bg-card border border-border rounded-2xl shadow-xl">

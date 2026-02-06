@@ -56,7 +56,7 @@ export const FAQ = () => {
         {/* FAQ Accordion */}
         <div className={`max-w-3xl mx-auto transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <Accordion type="single" collapsible className="space-y-3">
-            {faqs.map((faq, index) => <AccordionItem key={index} value={`item-${index}`} className="bg-card border border-border rounded-xl px-6 overflow-hidden data-[state=open]:border-primary/30" style={{ contentVisibility: 'auto', containIntrinsicSize: 'auto 56px' }}>
+            {faqs.map((faq, index) => <AccordionItem key={index} value={`item-${index}`} className="bg-card border border-border rounded-xl px-6 overflow-hidden data-[state=open]:border-primary/30">
                 <AccordionTrigger className="text-left font-semibold text-base py-4 hover:no-underline hover:text-primary transition-colors">
                   {faq.question}
                 </AccordionTrigger>

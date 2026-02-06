@@ -91,6 +91,8 @@ export const FloatingActions = () => {
               <img 
                 src={logo} 
                 alt="JL Digital Works" 
+                width="234"
+                height="96"
                 className="h-24 w-auto opacity-80"
               />
             </div>

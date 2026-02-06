@@ -1,7 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { Navbar } from '@/components/Navbar';
 import { Hero } from '@/components/Hero';
-import { FloatingActions } from '@/components/FloatingActions';
 
 // Lazy load all below-fold sections to reduce initial JS bundle
 const Problem = lazy(() => import('@/components/Problem').then(m => ({ default: m.Problem })));
@@ -13,6 +12,7 @@ const Testimonials = lazy(() => import('@/components/Testimonials').then(m => ({
 const FAQ = lazy(() => import('@/components/FAQ').then(m => ({ default: m.FAQ })));
 const FinalCTA = lazy(() => import('@/components/FinalCTA').then(m => ({ default: m.FinalCTA })));
 const Footer = lazy(() => import('@/components/Footer').then(m => ({ default: m.Footer })));
+const FloatingActions = lazy(() => import('@/components/FloatingActions').then(m => ({ default: m.FloatingActions })));
 
 const Index = () => {
   return (
@@ -40,7 +40,9 @@ const Index = () => {
       <Suspense fallback={null}>
         <Footer />
       </Suspense>
-      <FloatingActions />
+      <Suspense fallback={null}>
+        <FloatingActions />
+      </Suspense>
     </>
   );
 };

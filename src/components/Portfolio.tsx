@@ -52,6 +52,22 @@ const projects = [
     category: "Web Design & Development",
     thumbnail: jamesChristianImg
   }
+
+  // TODO: Uncomment and replace with real data when ready
+  // {
+  //   title: "Project Name",
+  //   description: "Project description goes here.",
+  //   url: "https://example.com",
+  //   category: "Category",
+  //   thumbnail: placeholderImg // import placeholder image above
+  // },
+  // {
+  //   title: "Project Name",
+  //   description: "Project description goes here.",
+  //   url: "https://example.com",
+  //   category: "Category",
+  //   thumbnail: placeholderImg // import placeholder image above
+  // }
 ];
 
 export const Portfolio = () => {

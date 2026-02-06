@@ -21,8 +21,8 @@
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://jldigitalworks.com/" />
 
-    <!-- Note: Hero image preload removed – Vite hashes asset URLs in production,
-         so a static /src/assets/ path won't match. The <img> tag already has fetchpriority="high". -->
+    <!-- Preload LCP hero image (served from public/ for a stable URL) -->
+    <link rel="preload" as="image" type="image/webp" href="/images/jla-profile.webp" fetchpriority="high" />
 
     <!-- Preconnect to external origins -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

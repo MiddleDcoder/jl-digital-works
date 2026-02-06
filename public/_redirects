@@ -1,5 +1,5 @@
 # 1. Force redirect subdomain to custom domain
-https://jldigitalworks.netlify.app/*  https://jldigitalworks.com/  301!
+https://jldigitalworks.netlify.app/*  https://jldigitalworks.com/:splat  301!
 
 # 2. Support SPA client-side routing (Vite requirement)
 /*  /index.html  200

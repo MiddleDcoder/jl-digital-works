@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Mail, Send, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
+import { Mail, Send, Loader2, CheckCircle, AlertCircle, X } from 'lucide-react';
 import { z } from 'zod';
 import {
   Dialog,
@@ -12,6 +12,14 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
+
+const SERVICE_OPTIONS = [
+  'Web Design & Development',
+  'GoHighLevel System',
+  'Automation',
+  'Analytics Tracking',
+  'Others',
+] as const;
 
 // Validation schema for contact form
 const contactSchema = z.object({
@@ -27,6 +35,9 @@ const contactSchema = z.object({
     .min(1, { message: 'Email is required' })
     .email({ message: 'Please enter a valid email address' })
     .max(255, { message: 'Email must be less than 255 characters' }),
+  services: z
+    .array(z.string())
+    .min(1, { message: 'Please select at least one service' }),
   message: z
     .string()
     .trim()
@@ -47,6 +58,7 @@ export const ContactFormModal = ({ open, onOpenChange }: ContactFormModalProps) 
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    services: [] as string[],
     message: '',
   });
   const [status, setStatus] = useState<FormStatus>('idle');
@@ -58,6 +70,19 @@ export const ContactFormModal = ({ open, onOpenChange }: ContactFormModalProps) 
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const toggleService = (service: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      services: prev.services.includes(service)
+        ? prev.services.filter((s) => s !== service)
+        : [...prev.services, service],
+    }));
+    // Clear services error when user selects
+    if (fieldErrors.services) {
+      setFieldErrors((prev) => ({ ...prev, services: undefined }));
+    }
   };
 
   const encode = (data: Record<string, string>) => {
@@ -99,13 +124,16 @@ export const ContactFormModal = ({ open, onOpenChange }: ContactFormModalProps) 
         body: encode({
           'form-name': 'contact',
           'subject': 'New Lead form submitted from JL DIGITAL WORKS',
-          ...sanitizedData,
+          name: sanitizedData.name,
+          email: sanitizedData.email,
+          services: sanitizedData.services.join(', '),
+          message: sanitizedData.message,
         }),
       });
 
       if (response.ok) {
         setStatus('success');
-        setFormData({ name: '', email: '', message: '' });
+        setFormData({ name: '', email: '', services: [], message: '' });
         setFieldErrors({});
       } else {
         throw new Error('Form submission failed');
@@ -120,12 +148,11 @@ export const ContactFormModal = ({ open, onOpenChange }: ContactFormModalProps) 
     setStatus('idle');
     setErrorMessage('');
     setFieldErrors({});
-    setFormData({ name: '', email: '', message: '' });
+    setFormData({ name: '', email: '', services: [], message: '' });
   };
 
   const handleClose = (isOpen: boolean) => {
     if (!isOpen) {
-      // Reset form when closing
       setTimeout(resetForm, 300);
     }
     onOpenChange(isOpen);
@@ -218,6 +245,35 @@ export const ContactFormModal = ({ open, onOpenChange }: ContactFormModalProps) 
               />
               {fieldErrors.email && (
                 <p id="email-error" className="text-sm text-destructive">{fieldErrors.email}</p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <Label>What services do you need?</Label>
+              <div className="flex flex-wrap gap-2" role="group" aria-label="Select services">
+                {SERVICE_OPTIONS.map((service) => {
+                  const isSelected = formData.services.includes(service);
+                  return (
+                    <button
+                      key={service}
+                      type="button"
+                      onClick={() => toggleService(service)}
+                      disabled={status === 'submitting'}
+                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium border transition-colors ${
+                        isSelected
+                          ? 'bg-primary text-primary-foreground border-primary'
+                          : 'bg-transparent text-foreground border-border hover:border-primary/50'
+                      }`}
+                      aria-pressed={isSelected}
+                    >
+                      {service}
+                      {isSelected && <X className="w-3.5 h-3.5" />}
+                    </button>
+                  );
+                })}
+              </div>
+              {fieldErrors.services && (
+                <p className="text-sm text-destructive">{fieldErrors.services}</p>
               )}
             </div>
 

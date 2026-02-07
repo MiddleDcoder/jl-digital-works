@@ -1,4 +1,10 @@
 import { useState } from 'react';
+
+declare global {
+  interface Window {
+    dataLayer: Record<string, unknown>[];
+  }
+}
 import { Mail, Send, Loader2, CheckCircle, AlertCircle, X } from 'lucide-react';
 import { z } from 'zod';
 import {
@@ -132,6 +138,19 @@ export const ContactFormModal = ({ open, onOpenChange }: ContactFormModalProps) 
       });
 
       if (response.ok) {
+        // Push form data to GTM dataLayer before clearing form
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: 'formSubmissionSuccess',
+          formType: 'lead',
+          user_data: {
+            email_address: sanitizedData.email,
+          },
+          form_name: sanitizedData.name,
+          form_services: sanitizedData.services.join(', '),
+          form_message: sanitizedData.message,
+        });
+
         setStatus('success');
         setFormData({ name: '', email: '', services: [], message: '' });
         setFieldErrors({});

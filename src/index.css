@@ -165,6 +165,10 @@
   100% { transform: translateX(-50%); }
 }
 
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
+}
+
 .floating {
   animation: float 3s ease-in-out infinite;
   will-change: transform;

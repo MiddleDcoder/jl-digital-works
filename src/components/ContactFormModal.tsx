@@ -114,7 +114,7 @@ export const ContactFormModal = ({ open, onOpenChange }: ContactFormModalProps) 
 
     // Validate form data using zod schema
     const validationResult = contactSchema.safeParse(formData);
-    
+
     if (!validationResult.success) {
       setStatus('error');
       const errors: Partial<Record<keyof ContactFormData, string>> = {};
@@ -149,6 +149,22 @@ export const ContactFormModal = ({ open, onOpenChange }: ContactFormModalProps) 
 
       if (response.ok) {
         // Push form data to GTM dataLayer before clearing form
+
+        const geoData = {
+          country: null,
+          city: null
+        };
+
+        fetch("https://ipapi.co/json/")
+          .then(function (res) {
+            return res.json();
+          })
+          .then(function (json) {
+            geoData.country = json.country_name || null;
+            geoData.city = json.city || null;
+          })
+          .catch(function () { });
+
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
           event: 'formSubmissionSuccess',
@@ -157,10 +173,13 @@ export const ContactFormModal = ({ open, onOpenChange }: ContactFormModalProps) 
             email_address: sanitizedData.email || '',
             phone_number: sanitizedData.phone || '',
           },
-          form_name: sanitizedData.name || '',
-          form_phone: sanitizedData.phone || '',
-          form_services: sanitizedData.services.join(', ') || '',
-          form_message: sanitizedData.message || '',
+          response_data: {
+            name: sanitizedData.name || '',
+            attendeeServicesNeed: sanitizedData.services.join(', ') || '',
+            notes: sanitizedData.message || '',
+            city: geoData.city || '',
+            country: geoData.country || ''
+          }
         });
 
         setStatus('success');
@@ -290,11 +309,10 @@ export const ContactFormModal = ({ open, onOpenChange }: ContactFormModalProps) 
                       type="button"
                       onClick={() => toggleService(service)}
                       disabled={status === 'submitting'}
-                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium border transition-colors ${
-                        isSelected
-                          ? 'bg-primary text-primary-foreground border-primary'
-                          : 'bg-transparent text-foreground border-border hover:border-primary/50'
-                      }`}
+                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium border transition-colors ${isSelected
+                        ? 'bg-primary text-primary-foreground border-primary'
+                        : 'bg-transparent text-foreground border-border hover:border-primary/50'
+                        }`}
                       aria-pressed={isSelected}
                     >
                       {service}

@@ -41,14 +41,22 @@ const contactSchema = z.object({
     .min(1, { message: 'Email is required' })
     .email({ message: 'Please enter a valid email address' })
     .max(255, { message: 'Email must be less than 255 characters' }),
+  phone: z
+    .string()
+    .trim()
+    .max(20, { message: 'Phone number must be less than 20 characters' })
+    .regex(/^[+\d\s\-().]*$/, { message: 'Phone number contains invalid characters' })
+    .optional()
+    .or(z.literal('')),
   services: z
     .array(z.string())
     .min(1, { message: 'Please select at least one service' }),
   message: z
     .string()
     .trim()
-    .min(1, { message: 'Message is required' })
-    .max(1000, { message: 'Message must be less than 1000 characters' }),
+    .max(1000, { message: 'Message must be less than 1000 characters' })
+    .optional()
+    .or(z.literal('')),
 });
 
 type ContactFormData = z.infer<typeof contactSchema>;
@@ -64,6 +72,7 @@ export const ContactFormModal = ({ open, onOpenChange }: ContactFormModalProps) 
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     services: [] as string[],
     message: '',
   });
@@ -132,8 +141,9 @@ export const ContactFormModal = ({ open, onOpenChange }: ContactFormModalProps) 
           'subject': 'New Lead form submitted from JL DIGITAL WORKS',
           name: sanitizedData.name,
           email: sanitizedData.email,
+          phone: sanitizedData.phone || '',
           services: sanitizedData.services.join(', '),
-          message: sanitizedData.message,
+          message: sanitizedData.message || '',
         }),
       });
 
@@ -147,12 +157,13 @@ export const ContactFormModal = ({ open, onOpenChange }: ContactFormModalProps) 
             email_address: sanitizedData.email,
           },
           form_name: sanitizedData.name,
+          form_phone: sanitizedData.phone || '',
           form_services: sanitizedData.services.join(', '),
-          form_message: sanitizedData.message,
+          form_message: sanitizedData.message || '',
         });
 
         setStatus('success');
-        setFormData({ name: '', email: '', services: [], message: '' });
+        setFormData({ name: '', email: '', phone: '', services: [], message: '' });
         setFieldErrors({});
       } else {
         throw new Error('Form submission failed');
@@ -167,7 +178,7 @@ export const ContactFormModal = ({ open, onOpenChange }: ContactFormModalProps) 
     setStatus('idle');
     setErrorMessage('');
     setFieldErrors({});
-    setFormData({ name: '', email: '', services: [], message: '' });
+    setFormData({ name: '', email: '', phone: '', services: [], message: '' });
   };
 
   const handleClose = (isOpen: boolean) => {
@@ -297,14 +308,33 @@ export const ContactFormModal = ({ open, onOpenChange }: ContactFormModalProps) 
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="message">Message</Label>
+              <Label htmlFor="phone">Phone Number <span className="text-muted-foreground font-normal">(optional)</span></Label>
+              <Input
+                id="phone"
+                name="phone"
+                type="tel"
+                placeholder="+1 (555) 123-4567"
+                value={formData.phone}
+                onChange={handleChange}
+                disabled={status === 'submitting'}
+                maxLength={20}
+                className={fieldErrors.phone ? 'border-destructive' : ''}
+                aria-invalid={!!fieldErrors.phone}
+                aria-describedby={fieldErrors.phone ? 'phone-error' : undefined}
+              />
+              {fieldErrors.phone && (
+                <p id="phone-error" className="text-sm text-destructive">{fieldErrors.phone}</p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="message">Message <span className="text-muted-foreground font-normal">(optional)</span></Label>
               <Textarea
                 id="message"
                 name="message"
                 placeholder="Tell me about your project..."
                 value={formData.message}
                 onChange={handleChange}
-                required
                 disabled={status === 'submitting'}
                 rows={4}
                 maxLength={1000}

@@ -85,7 +85,7 @@ export const Hero = () => {
                   width="280"
                   height="320"
                   loading="eager"
-                  fetchPriority="high"
+                  
                   decoding="async"
                   onLoad={() => setImageLoaded(true)}
                   className="w-[280px] h-[320px] md:w-[350px] md:h-[400px] lg:w-[400px] lg:h-[460px] object-cover object-top rounded-3xl shadow-2xl"

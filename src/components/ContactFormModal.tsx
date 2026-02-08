@@ -154,11 +154,12 @@ export const ContactFormModal = ({ open, onOpenChange }: ContactFormModalProps) 
           event: 'formSubmissionSuccess',
           formType: 'lead',
           user_data: {
-            email_address: sanitizedData.email,
+            email_address: sanitizedData.email || '',
+            phone_number: sanitizedData.phone || '',
           },
-          form_name: sanitizedData.name,
+          form_name: sanitizedData.name || '',
           form_phone: sanitizedData.phone || '',
-          form_services: sanitizedData.services.join(', '),
+          form_services: sanitizedData.services.join(', ') || '',
           form_message: sanitizedData.message || '',
         });
 

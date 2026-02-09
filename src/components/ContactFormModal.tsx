@@ -147,28 +147,13 @@ export const ContactFormModal = ({ open, onOpenChange }: ContactFormModalProps) 
         }),
       });
 
-      // Geo Data
-      let geoData = {
-        country: null,
-        city: null
-      };
-
-      fetch("https://ipapi.co/json/")
-        .then(function (res) {
-          return res.json();
-        })
-        .then(function (json) {
-          geoData.country = json.country_name || null;
-          geoData.city = json.city || null;
-        })
-        .catch(function () { });
-
       if (response.ok) {
         // Push form data to GTM dataLayer before clearing form
 
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
           event: 'formSubmissionSuccess',
+          source: 'Contact Form',
           formType: 'lead',
           user_data: {
             email_address: sanitizedData.email || '',
@@ -178,9 +163,7 @@ export const ContactFormModal = ({ open, onOpenChange }: ContactFormModalProps) 
             name: sanitizedData.name || '',
             attendeeServicesNeed: sanitizedData.services.join(', ') || '',
             notes: sanitizedData.message || '',
-          },
-          geo_city: geoData.city || '',
-          geo_country: geoData.country || ''
+          }
         });
 
         setStatus('success');

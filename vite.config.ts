@@ -57,8 +57,10 @@ function modulePreloadLazyChunksPlugin(): Plugin {
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   server: {
-    host: "::",
+    host: process.env.TEMPO === "true" ? "0.0.0.0" : "::",
     port: 8080,
+    // @ts-ignore
+    allowedHosts: process.env.TEMPO === "true" ? true : undefined,
   },
   plugins: [
     react(),

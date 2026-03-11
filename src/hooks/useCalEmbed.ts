@@ -16,11 +16,18 @@ export const useCalEmbed = () => {
     const init = async () => {
       if (initialized.current) return;
       initialized.current = true;
-      const cal = await getCalApi({ namespace: "30min" });
-      cal("ui", {
-        hideEventTypeDetails: false,
-        layout: "month_view",
-      });
+      try {
+        const cal = await getCalApi({ namespace: "30min" });
+        cal("ui", {
+          hideEventTypeDetails: false,
+          layout: "month_view",
+        });
+      } catch (error) {
+        // Cal.com embed may fail in iframe/preview environments - silently ignore
+        if (import.meta.env.DEV) {
+          console.warn("Cal.com embed failed to initialize:", error);
+        }
+      }
     };
 
     // Defer until browser is idle to avoid blocking LCP

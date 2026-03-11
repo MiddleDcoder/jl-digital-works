@@ -248,32 +248,40 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 
 All located in [`src/components/ui/`](src/components/ui/)
 
-### 2.3 Component Composition Rules
+### 4.2 Component Composition Rules
 
 **Pattern**: Always compose from shadcn/ui base components. NEVER create custom Button, Card, or Input wrappers.
 
-✅ **Correct**:
+#### Basic Composition
+
+✅ **Correct**: Reuse Card + Button + Badge
 ```tsx
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { ArrowRight } from "lucide-react";
 
-export function SearchForm() {
+export function FeatureCard({ title, description, badge }) {
   return (
-    <Card>
+    <Card className="hover:shadow-lg transition-all">
       <CardHeader>
-        <CardTitle>Search</CardTitle>
+        {badge && <Badge className="w-fit mb-2">{badge}</Badge>}
+        <CardTitle>{title}</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        <Input placeholder="Search..." />
-        <Button>Search</Button>
+        <p className="text-muted-foreground">{description}</p>
+        <Button>
+          Learn More
+          <ArrowRight className="w-4 h-4" />
+        </Button>
       </CardContent>
     </Card>
   );
 }
 ```
 
-❌ **Incorrect** - Don't create wrapper components:
+❌ **Incorrect**: Don't create wrapper components
 ```tsx
 // ❌ WRONG: Never create CustomButton
 const CustomButton = ({ children }) => (
@@ -469,19 +477,31 @@ import projectImg from '@/assets/portfolio/project-preview.webp';
 <img src={projectImg} alt="Project preview" className="rounded-lg" />
 ```
 
-### 4.3 Asset Optimization
+### 4.4 Asset Optimization
 
 #### Vite Optimization
 1. **Image hashing** - Filenames include content hash (cache busting)
 2. **Code splitting** - CSS and JS split into separate chunks
 3. **Async CSS** - Non-critical CSS made async via media="print"+onload
-4. **Module preload** - Lazy chunks detected and preloaded
+4. **Module preload** - Lazy chunks detected and preloaded via link tags
 
 #### Image Guidelines
-- **Format**: WebP for all images (best compression)
-- **Dimensions**: Set explicit width/height to prevent CLS
-- **Responsive**: Use `srcSet` for multiple densities if needed
-- **Placeholders**: Show skeleton loaders while LCP images load
+- **Format**: WebP exclusively (better compression than PNG/JPG)
+- **Dimensions**: Set explicit `width` and `height` to prevent CLS
+- **Alt text**: Always include descriptive alt text
+- **Responsive images**: Define `srcSet` for multiple screen densities if needed
+- **Aspect ratio**: Use `aspect-video`, `aspect-square`, or explicit ratio
+
+**Good practice**:
+```tsx
+<img
+  src="/images/hero.webp"
+  alt="Hero section background"
+  width="1200"
+  height="600"
+  className="w-full h-auto"
+/>
+```
 
 ### 4.4 CDN Configuration
 No CDN configuration in place. All assets served from origin with Vite's hashing and HTTP caching.
@@ -555,18 +575,44 @@ const MyIcon = () => <svg>...</svg>;
 | Loader2 | `Loader2` | Loading state |
 | X | `X` | Close button |
 
-### 5.5 Icon Color & Styling
+### 5.5 Icon Size Variants & Styling
 
-Icons inherit Tailwind text color classes. Use flexbox alignment for icon+text combinations.
+Icons are customizable via Tailwind size classes. Default is 24px (w-6 h-6).
 
+**Common size variants**:
+```tsx
+// Small icons (for inline text, list markers)
+<ArrowRight className="w-4 h-4" />  // 16px
+
+// Default icons (buttons, navigation, standard UI)
+<Code className="w-5 h-5" />  // 20px
+<Code className="w-6 h-6" />  // 24px (default lucide size)
+
+// Large icons (hero sections, feature highlights)
+<Zap className="w-8 h-8" />   // 32px
+<Star className="w-10 h-10" /> // 40px
+```
+
+**Color & styling**:
 ```tsx
 // Icon inherits text color from parent
 <div className="text-primary">
-  <Code className="w-5 h-5" />  {/* Purple via parent */}
+  <Code className="w-6 h-6" />  {/* Purple via parent */}
 </div>
 
-// Alternative: explicit color
-<Code className="w-5 h-5 text-destructive" />
+// Explicit color
+<Code className="w-6 h-6 text-destructive" />
+
+// Icon in a badge/circle background
+<div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center">
+  <Code className="w-6 h-6 text-primary-foreground" />
+</div>
+
+// Icon with text (common button pattern)
+<button className="flex items-center gap-2">
+  <ArrowRight className="w-4 h-4" />
+  <span>Next Step</span>
+</button>
 ```
 
 ---
@@ -606,7 +652,46 @@ Icons inherit Tailwind text color classes. Use flexbox alignment for icon+text c
 }
 ```
 
-### 6.3 Custom Utility Classes
+### 6.3 Class Merging with `cn()` Utility
+
+**File**: [`src/lib/utils.ts`](src/lib/utils.ts)
+
+All components use the `cn()` utility to intelligently merge and deduplicate Tailwind classes:
+```typescript
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+```
+
+**Purpose**: Combine base classes with conditional/optional classes without conflicts.
+
+✅ **Correct Usage**:
+```tsx
+import { cn } from "@/lib/utils";
+
+// Merge base and optional classes
+<div className={cn("px-4 py-2 rounded-md", isActive && "bg-primary", disabled && "opacity-50")}>
+  Content
+</div>
+
+// In component variants
+<Card className={cn("border-2", variant === "highlight" && "border-primary")} />
+
+// Accept custom className prop
+function MyComponent({ className, children }) {
+  return <div className={cn("base-styles", className)}>Content</div>;
+}
+```
+
+❌ **Avoid**:
+```tsx
+// Don't string concatenate – use cn()
+<div className={"base-class" + (isActive ? " bg-primary" : "")}>
+  Content
+</div>
+```
+
+### 6.4 Custom Utility Classes & Extensions
 
 The codebase uses **minimal custom utilities**. All custom behavior comes from Tailwind's built-in utilities or shadcn/ui components.
 
@@ -628,14 +713,17 @@ borderRadius: {
 }
 ```
 
-### 6.4 Responsive Design
+### 6.5 Responsive Design
 
 Tailwind breakpoints (configured in [`tailwind.config.ts`](tailwind.config.ts)):
 
 ```typescript
 screens: {
-  "2xl": "1400px",  // Desktop large
-  // Defaults: sm (640px), md (768px), lg (1024px), xl (1280px)
+  sm: "640px",
+  md: "768px",
+  lg: "1024px",
+  xl: "1280px",
+  "2xl": "1400px",  // Container default
 }
 ```
 
@@ -651,27 +739,79 @@ screens: {
 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
   {/* 1 column mobile, 2 on tablet, 3 on desktop */}
 </div>
+
+<div className="w-full md:w-1/2 lg:w-1/3">
+  Width adapts to screen size
+</div>
 ```
 
-### 6.5 Common Tailwind Patterns
+### 6.6 Layout Conventions & Spacing
 
-#### Spacing
+#### Section Container Pattern
+All major sections follow this standard structure:
+
+```tsx
+<section id="section-name" className="section-padding bg-background" aria-labelledby="section-heading">
+  <div className="container-custom mx-auto">
+    {/* Section content */}
+  </div>
+</section>
+```
+
+**Custom classes**:
+- `section-padding` = `py-20 md:py-28` (vertical padding for full sections)
+- `container-custom` = `max-w-6xl` (standard content width)
+- Always add `px-4 md:px-8` to top-level divs for mobile padding
+
+#### Standardized Section Header Pattern
+Every section starts with this typography pattern:
+
+```tsx
+<div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+  {/* Optional: Small label above heading */}
+  <span className="text-sm font-medium text-primary mb-4 inline-block">
+    Section Label
+  </span>
+  
+  {/* Main heading */}
+  <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+    Heading with <span className="gradient-text">Gradient Text</span>
+  </h2>
+  
+  {/* Description */}
+  <p className="text-muted-foreground text-lg">
+    Section description explaining what this section covers.
+  </p>
+</div>
+```
+
+#### Spacing System
 Uses Tailwind scale: `p-4`, `mb-6`, `gap-8`, `space-y-4`
 
 **Scale**: 0px (0), 4px (1), 8px (2), 12px (3), 16px (4), 20px (5), 24px (6), 28px (7), 32px (8), ...
 
+**Rules**:
+- Use Tailwind scale only – never hardcode pixel values
+- Never use arbitrary values like `p-[13px]`
+- Add custom values to `tailwind.config.ts` if needed
+
 #### Flexbox & Grid
 ```tsx
-{/* Flexbox */}
+{/* Flexbox with spacing */}
 <div className="flex items-center justify-between gap-4">
   <div>Left</div>
   <div>Right</div>
 </div>
 
-{/* Grid */}
+{/* Grid layout (mobile-first responsive) */}
 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
   {items.map(item => <div key={item.id}>{item}</div>)}
 </div>
+
+{/* Common patterns */}
+<div className="flex flex-col md:flex-row gap-8">Column on mobile, row on tablet+</div>
+<div className="space-y-4">Vertical spacing between children</div>
+<div className="flex items-center gap-2">Icon + text alignment</div>
 ```
 
 #### Shadows & Effects
@@ -700,7 +840,74 @@ Uses Tailwind scale: `p-4`, `mb-6`, `gap-8`, `space-y-4`
 <div className="animate-spin">Spinning loader</div>
 ```
 
-### 6.6 Dark Mode Implementation
+---
+
+## 6.7 Animation Patterns
+
+### Defined Keyframes
+All animations are defined in `tailwind.config.ts`. **Never use inline `@keyframes` styles.**
+
+**Available animations** (in order of use):
+
+| Animation | Purpose | Duration | Easing |
+|-----------|---------|----------|--------|
+| `fade-in-up` | Fade in with upward slide | 0.6s | ease |
+| `fade-in` | Simple fade in | 0.5s | ease |
+| `slide-in-right` | Slide in from right | 0.5s | ease |
+| `scale-in` | Scale up with fade | 0.4s | ease |
+| `accordion-down` | Accordion open | 0.2s | ease-out |
+| `accordion-up` | Accordion close | 0.2s | ease-out |
+
+### Usage Patterns
+
+#### Entrance Animations
+```tsx
+// Fade in when mounted
+<div className="animate-fade-in-up">Content</div>
+
+// Fade in simple
+<div className="animate-fade-in">Simple fade</div>
+
+// Slide in from right
+<div className="animate-slide-in-right">Sliding content</div>
+
+// Scale in
+<div className="animate-scale-in">Scaling content</div>
+```
+
+#### Hover & Interactive Animations
+```tsx
+// Scale on hover
+<button className="hover:scale-105 transition-transform duration-300">
+  Hover effect
+</button>
+
+// Color transition on hover
+<div className="hover:text-primary transition-colors duration-200">
+  Change color on hover
+</div>
+
+// Multi-property transition
+<div className="hover:shadow-lg hover:border-primary/40 transition-all duration-300">
+  Complex hover effect
+</div>
+```
+
+#### Loading & Pulse States
+```tsx
+// Pulsing animation (built-in Tailwind)
+<div className="animate-pulse">Loading...</div>
+
+// Spinning loader
+<div className="animate-spin">Processing...</div>
+```
+
+### Best Practices
+- **Keep animations smooth**: Use `transition-all`, `transition-colors`, `transition-transform`
+- **Respect reduced motion**: Tailwind respects `prefers-reduced-motion` automatically
+- **Duration**: Use `duration-200` (fast), `duration-300` (standard), `duration-500` (slow)
+
+---
 
 **Theme System**: React Context-based (stored in localStorage)
 
@@ -947,6 +1154,215 @@ Example mobile-first adaptation:
 
 ---
 
+## 9.5 Form Handling Patterns
+
+### Schema Validation Pattern (zod + react-hook-form)
+
+```tsx
+import { z } from "zod";
+import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+
+// Define schema
+const contactSchema = z.object({
+  name: z
+    .string()
+    .trim()
+    .min(1, { message: "Name is required" })
+    .max(100, { message: "Name must be less than 100 characters" }),
+  email: z
+    .string()
+    .trim()
+    .email({ message: "Please enter a valid email address" }),
+  phone: z
+    .string()
+    .max(20, { message: "Phone must be less than 20 characters" })
+    .optional()
+    .or(z.literal("")),
+  message: z
+    .string()
+    .max(1000, { message: "Message must be less than 1000 characters" })
+    .optional(),
+});
+
+type ContactFormData = z.infer<typeof contactSchema>;
+
+// Use in component
+export function ContactForm() {
+  const form = useForm<ContactFormData>({
+    resolver: zodResolver(contactSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      phone: "",
+      message: "",
+    },
+  });
+
+  const onSubmit = async (data: ContactFormData) => {
+    // Handle form submission
+    console.log(data);
+  };
+
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <FormField
+          control={form.control}
+          name="name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Name</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="Your name"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input
+                  type="email"
+                  placeholder="your@email.com"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <Button type="submit" className="w-full">
+          Submit
+        </Button>
+      </form>
+    </Form>
+  );
+}
+```
+
+### Loading & Error States
+
+```tsx
+export function ContactForm() {
+  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  return (
+    <Form {...form}>
+      {/* Form fields... */}
+      
+      <Button 
+        type="submit"
+        disabled={status === 'submitting'}
+        className="w-full"
+      >
+        {status === 'submitting' && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
+        {status === 'submitting' ? 'Sending...' : 'Send Message'}
+      </Button>
+
+      {status === 'error' && (
+        <div className="p-3 bg-destructive/10 border border-destructive/20 rounded-md">
+          <p className="text-destructive text-sm">{errorMessage}</p>
+        </div>
+      )}
+
+      {status === 'success' && (
+        <div className="p-3 bg-green-50 border border-green-200 rounded-md">
+          <p className="text-green-700 text-sm flex items-center gap-2">
+            <CheckCircle className="w-4 h-4" />
+            Message sent successfully!
+          </p>
+        </div>
+      )}
+    </Form>
+  );
+}
+```
+
+---
+
+## 9.6 Accessibility & Semantic HTML Patterns
+
+### Section with Proper Landmark Structure
+
+```tsx
+<section id="services" aria-labelledby="services-heading">
+  <div className="container-custom mx-auto">
+    <h2 id="services-heading" className="font-display text-4xl font-bold mb-12">
+      Services
+    </h2>
+    
+    {/* Service cards */}
+  </div>
+</section>
+```
+
+### Icon Button with Accessible Label
+
+```tsx
+import { X } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+
+// ✅ CORRECT: Icon button with aria-label
+<Button 
+  variant="ghost" 
+  size="icon"
+  onClick={() => setOpen(false)}
+  aria-label="Close menu"
+>
+  <X className="w-5 h-5" />
+</Button>
+```
+
+### Link vs Button Semantics
+
+```tsx
+// ✅ CORRECT: Use <a> for navigation
+<a href="/portfolio" className="text-primary hover:underline">
+  View Portfolio
+</a>
+
+// ✅ CORRECT: Use <button> for actions
+<Button onClick={handleSubmit}>
+  Submit Form
+</Button>
+
+// ❌ AVOID: Making div clickable
+<div onClick={handleClick} className="cursor-pointer">
+  Click me
+</div>
+```
+
+### Heading Hierarchy
+
+```tsx
+// ✅ CORRECT: Proper semantic hierarchy
+<h1>Main Page Title (used once per page)</h1>
+<h2>Section Heading</h2>
+<h3>Subsection Heading</h3>
+<h4>Sub-subsection Heading</h4>
+
+// ❌ AVOID: Skipping levels
+<h1>Title</h1>
+<h3>Skipped h2!</h3>  // Confuses screen readers
+```
+
+---
+
 ## 10. QUICK REFERENCE: DO's & DON'Ts
 
 ### DO ✅
@@ -978,9 +1394,221 @@ Example mobile-first adaptation:
 - Nest custom CSS in component files
 - Extract utility classes into custom selectors
 
+### DO ✅
+- Use shadcn/ui components as base building blocks
+- Apply Tailwind utility classes for styling
+- Use CSS variable token names (e.g., `bg-primary`, `text-muted-foreground`)
+- Import icons from lucide-react
+- Use `cn()` utility for conditional class merging
+- Organize components by feature/section
+- Use React Context for global state (theme)
+- **Compose components** from shadcn/ui primitives (Card + Button + Badge, not custom wrappers)
+- Validate forms with zod + react-hook-form
+- Add accessibility attributes (aria-*, semantic HTML)
+- Store critical images in `public/images/`, others in `src/assets/`
+- Use font-display for headings, font-sans for body
+- Apply responsive classes: `md:`, `lg:`, `xl:` breakpoints
+- Use animation keyframes from tailwind.config.ts
+- Use `cn()` for dynamic class merging
+- Apply `section-padding` and `container-custom` for layout consistency
+
+### DON'T ❌
+- Hardcode colors (hex, rgb, named colors) — use token classes
+- Create custom Button, Card, Input wrappers — compose from shadcn/ui
+- Use inline `<style>` tags or CSS-in-JS
+- Import SVGs instead of lucide-react icons
+- Use arbitrary Tailwind values (`bg-[#6A2EFF]`)
+- Create custom z-index values (use Tailwind scale)
+- Use inline styles for CSS properties (only for dynamic data)
+- Import images from `src/` for critical LCP images — use `public/images/`
+- Use non-WebP image formats
+- Override token colors without good reason
+- Nest custom CSS in component files
+- Extract utility classes into custom selectors
+- Create custom form components — use shadcn form + react-hook-form
+- Skip heading levels in semantic hierarchy
+
 ---
 
-## 11. REFERENCES & KEY FILES
+## 11. COMPONENT COMPOSITION EXAMPLES
+
+### Feature Card Pattern (Common Reusable Component)
+
+```tsx
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ArrowRight } from "lucide-react";
+
+interface FeatureCardProps {
+  icon?: React.ReactNode;
+  badge?: string;
+  title: string;
+  description: string;
+  action?: {
+    label: string;
+    onClick: () => void;
+  };
+}
+
+export function FeatureCard({ icon, badge, title, description, action }: FeatureCardProps) {
+  return (
+    <Card className="hover:shadow-lg hover:border-primary/40 transition-all duration-300 group">
+      <CardHeader>
+        {badge && (
+          <Badge className="w-fit mb-2" variant="secondary">
+            {badge}
+          </Badge>
+        )}
+        {icon && <div className="mb-3 text-primary">{icon}</div>}
+        <CardTitle className="group-hover:text-primary transition-colors">
+          {title}
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <p className="text-muted-foreground text-sm">{description}</p>
+        {action && (
+          <Button variant="outline" onClick={action.onClick} className="w-full">
+            {action.label}
+            <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+          </Button>
+        )}
+      </CardContent>
+    </Card>
+  );
+}
+
+// Usage
+<FeatureCard
+  badge="Popular"
+  title="Web Design & Development"
+  description="Custom websites built for conversion and performance."
+  action={{
+    label: "Learn More",
+    onClick: () => scrollToSection("portfolio"),
+  }}
+/>
+```
+
+### Service Badge Pattern
+
+```tsx
+import { Badge } from "@/components/ui/badge";
+import { Code, Zap, BarChart3 } from "lucide-react";
+
+export function ServiceBadge({ service }: { service: 'web' | 'automation' | 'tracking' }) {
+  const services = {
+    web: { icon: Code, label: 'Web Design & Dev', className: 'bg-primary' },
+    automation: { icon: Zap, label: 'GHL Systems', className: 'bg-card border border-border' },
+    tracking: { icon: BarChart3, label: 'Tracking & Analytics', className: 'bg-card border border-border' },
+  };
+
+  const { icon: Icon, label, className } = services[service];
+
+  return (
+    <div className={`${className} flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium`}>
+      <Icon className="w-4 h-4" />
+      <span>{label}</span>
+    </div>
+  );
+}
+```
+
+### Section with Fade-In Animation
+
+```tsx
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+
+export function FeaturesSection() {
+  const { ref, isVisible } = useScrollAnimation({ threshold: 0.1 });
+
+  return (
+    <section
+      ref={ref}
+      id="features"
+      className="section-padding bg-background"
+      aria-labelledby="features-heading"
+    >
+      <div className="container-custom mx-auto px-4 md:px-8">
+        {/* Fade in section header */}
+        <div className={`text-center max-w-3xl mx-auto mb-16 transition-all duration-700 ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}>
+          <span className="text-sm font-medium text-primary mb-4 inline-block">
+            Features
+          </span>
+          <h2 id="features-heading" className="font-display text-4xl font-bold mb-6">
+            What I <span className="gradient-text">Offer</span>
+          </h2>
+          <p className="text-muted-foreground text-lg">
+            Complete solutions for modern web systems.
+          </p>
+        </div>
+
+        {/* Fade in grid items */}
+        <div className="grid md:grid-cols-3 gap-6">
+          {features.map((feature, index) => (
+            <div
+              key={feature.id}
+              className={`transition-all duration-700 ${
+                isVisible 
+                  ? 'opacity-100 translate-y-0' 
+                  : 'opacity-0 translate-y-8'
+              }`}
+              style={{ transitionDelay: isVisible ? `${index * 100}ms` : '0ms' }}
+            >
+              <FeatureCard {...feature} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+```
+
+### CTA Button Section Pattern
+
+```tsx
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
+
+export function CTASection() {
+  return (
+    <section className="section-padding bg-primary text-primary-foreground">
+      <div className="container-custom mx-auto px-4 md:px-8 text-center">
+        <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
+          Ready to Get Started?
+        </h2>
+        <p className="text-primary-foreground/90 text-lg mb-8 max-w-2xl mx-auto">
+          Let's build something amazing together.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Button 
+            variant="secondary"
+            size="lg"
+            className="gap-2"
+          >
+            Schedule a Call
+            <ArrowRight className="w-5 h-5" />
+          </Button>
+          <Button 
+            variant="outline"
+            size="lg"
+            className="text-foreground hover:text-foreground border-primary-foreground/20 hover:bg-primary/90"
+          >
+            View Portfolio
+          </Button>
+        </div>
+      </div>
+    </section>
+  );
+}
+```
+
+---
+
+## 12. REFERENCES & KEY FILES
 
 ### Design System
 - Colors & tokens: [`src/index.css`](src/index.css)
@@ -1003,7 +1631,7 @@ Example mobile-first adaptation:
 
 ---
 
-## 12. WORKFLOW FOR FIGMA → CODE CONVERSION
+## 13. WORKFLOW FOR FIGMA → CODE CONVERSION
 
 ### Step 1: Analyze Figma Design
 - Extract component type (Button, Card, Form, Dialog, etc.)
@@ -1063,3 +1691,4 @@ export function DesignComponent() {
 **Last Updated**: March 2025
 **Framework**: React 18 + TypeScript + Tailwind CSS + shadcn/ui
 **Build Tool**: Vite 5.4
+**Sections**: 13 comprehensive sections with 20+ practical code examples

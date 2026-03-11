@@ -4,6 +4,52 @@
 
 ---
 
+## Figma MCP Required Workflow
+
+Follow this workflow when converting Figma designs to code:
+
+1. **Get Design Context First**
+   - Call `get_design_context` with the Figma node ID and file key
+   - This returns code reference, screenshot, and contextual metadata
+   - Check if response is complete or truncated
+
+2. **Handle Large Responses**
+   - If response is too large or truncated, call `get_metadata` first
+   - Review structure to identify needed nodes
+   - Request only the specific nodes you need via separate `get_design_context` calls
+
+3. **Capture Visual Reference**
+   - Always call `get_screenshot` before implementation
+   - Use the screenshot to verify colors, spacing, and layout
+   - Reference the screenshot throughout implementation
+
+4. **Use MCP-Provided Assets**
+   - Download and use any assets (images, icons) provided in the response
+   - Store images in correct location (`public/images/` for LCP, `src/assets/` for non-critical)
+   - Maintain WebP format
+
+5. **Reuse Existing Components**
+   - Always check [`src/components/ui/`](src/components/ui/) first
+   - Compose from Button, Card, Input, etc. — don't create wrappers
+   - Use CVA variants for state management
+
+6. **Map to Existing Tokens**
+   - Colors → Map to CSS variables (primary, secondary, destructive, etc.)
+   - Spacing → Use Tailwind scale (p-4, gap-6, mb-12, etc.)
+   - Typography → Apply font-display or font-sans + Tailwind text utilities
+   - Border radius → Use var(--radius) and Tailwind lg/md/sm modifiers
+   - Shadows → Use Tailwind shadow-sm/md/lg classes
+   - **Never hardcode hex values or pixel sizes**
+
+7. **Validate Against Screenshot**
+   - Compare implementation against the `get_screenshot` result
+   - Verify responsive behavior (mobile, tablet, desktop)
+   - Check dark mode if applicable
+   - Confirm all interactive states (hover, active, focus, disabled)
+   - Mark complete only when screenshot match is confirmed
+
+---
+
 ## 1. DESIGN SYSTEM STRUCTURE
 
 ### 1.1 Token Definitions

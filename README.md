@@ -4,7 +4,7 @@ This project is created for my portfolio site and freelancing with combination o
 
 ## Project info
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+**URL**: https://jldigitalworks.com
 
 ## How can I edit this code?
 

@@ -1,4 +1,6 @@
-# Welcome to your Lovable project
+# Welcome to my personal / freelancer site
+
+This project is created for my portfolio site and freelancing with combination of Hard Coding and Lovable. 
 
 ## Project info
 

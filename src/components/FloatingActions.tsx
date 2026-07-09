@@ -52,7 +52,7 @@ export const FloatingActions = () => {
     {
       icon: MessageCircle,
       label: 'Text Us',
-      href: 'https://wa.me/639773155072',
+      href: 'https://wa.me/09121778824',
       external: true,
     },
   ];
@@ -61,7 +61,7 @@ export const FloatingActions = () => {
     <>
       {/* Overlay */}
       {isOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black/40 z-40 transition-opacity duration-300"
           onClick={() => setIsOpen(false)}
           aria-hidden="true"
@@ -70,11 +70,10 @@ export const FloatingActions = () => {
 
       {/* Floating Panel */}
       <div
-        className={`fixed z-50 transition-all duration-300 ease-out ${
-          isOpen 
-            ? 'bottom-4 left-4 right-4 md:right-auto md:w-[360px] opacity-100 translate-y-0' 
+        className={`fixed z-50 transition-all duration-300 ease-out ${isOpen
+            ? 'bottom-4 left-4 right-4 md:right-auto md:w-[360px] opacity-100 translate-y-0'
             : 'bottom-6 left-6 opacity-0 translate-y-4 pointer-events-none'
-        }`}
+          }`}
       >
         <div className="bg-card rounded-3xl shadow-2xl overflow-hidden border border-border">
           {/* Header */}
@@ -88,9 +87,9 @@ export const FloatingActions = () => {
           <div className="p-6 bg-muted/30">
             {/* Logo */}
             <div className="flex justify-center mb-6 bg-gradient-to-br from-[#1c1c1c] to-[#1c1c1c]/90 rounded-3xl p-4">
-              <img 
-                src={logo} 
-                alt="JL Digital Works" 
+              <img
+                src={logo}
+                alt="JL Digital Works"
                 width="234"
                 height="96"
                 className="h-24 w-auto opacity-80"
@@ -101,7 +100,7 @@ export const FloatingActions = () => {
             <div className="space-y-3">
               {actions.map((action) => {
                 const Icon = action.icon;
-                
+
                 if (action.isCalButton) {
                   return (
                     <button
@@ -165,13 +164,11 @@ export const FloatingActions = () => {
       {/* Floating Trigger Button / Close Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`fixed z-50 w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 ease-out ${
-          !pastHero && !isOpen ? 'opacity-0 pointer-events-none translate-y-4' : ''
-        } ${
-          isOpen
+        className={`fixed z-50 w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-300 ease-out ${!pastHero && !isOpen ? 'opacity-0 pointer-events-none translate-y-4' : ''
+          } ${isOpen
             ? 'bottom-6 left-6 bg-foreground hover:bg-foreground/90'
             : 'bottom-6 left-6 bg-primary/80 hover:bg-primary hover:scale-105'
-        }`}
+          }`}
         aria-label={isOpen ? 'Close actions panel' : 'Open actions panel'}
         aria-expanded={isOpen}
       >

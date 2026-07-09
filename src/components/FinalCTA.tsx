@@ -49,7 +49,7 @@ export const FinalCTA = () => {
                 Book a Call
               </button>
               <a
-                href="https://wa.me/639773155072"
+                href="https://wa.me/09121778824"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-background/10 text-background border border-background/20 rounded-full font-semibold text-lg hover:bg-background/20 transition-all"

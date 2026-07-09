@@ -15,9 +15,8 @@ export const Hero = () => {
 
       <section
         id="hero"
-        className={`min-h-screen flex flex-col justify-center relative overflow-hidden bg-background pt-24 pb-8 transition-opacity duration-300 ${
-          imageLoaded ? 'opacity-100' : 'opacity-0 absolute inset-0 pointer-events-none'
-        }`}
+        className={`min-h-screen flex flex-col justify-center relative overflow-hidden bg-background pt-24 pb-8 transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0 absolute inset-0 pointer-events-none'
+          }`}
         aria-labelledby="hero-heading"
       >
         <div className="container-custom mx-auto px-4 md:px-8 relative z-10" itemScope itemType="https://schema.org/Person">
@@ -26,7 +25,7 @@ export const Hero = () => {
             <div className="order-2 lg:order-1 text-center lg:text-left">
               {/* Trust Badge */}
               <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full animate-in">
-                
+
                 <span className="text-sm font-medium text-primary">Freelance Web Systems Consultant</span>
               </div>
 
@@ -38,7 +37,7 @@ export const Hero = () => {
 
               {/* Value Proposition */}
               <p className="text-muted-foreground text-lg md:text-xl max-w-xl mb-8 mx-auto lg:mx-0 leading-relaxed">
-                I build high-converting websites, GoHighLevel systems, and analytics infrastructure that turn visitors into leads and show you exactly what is working. 
+                I build high-converting websites, GoHighLevel systems, and analytics infrastructure that turn visitors into leads and show you exactly what is working.
               </p>
 
               {/* Service Pills */}
@@ -65,8 +64,8 @@ export const Hero = () => {
                 </a>
                 <a href="#contact" className="inline-flex items-center justify-center gap-2 px-7 py-4 bg-secondary text-foreground rounded-full font-semibold text-lg hover:bg-secondary/80 transition-all border border-border">
                   <Play className="w-4 h-4" />
-                  Ready to Start?  
-  
+                  Ready to Start?
+
                 </a>
               </div>
             </div>
@@ -85,7 +84,7 @@ export const Hero = () => {
                   width="280"
                   height="320"
                   loading="eager"
-                  
+
                   decoding="async"
                   onLoad={() => setImageLoaded(true)}
                   className="w-[280px] h-[320px] md:w-[350px] md:h-[400px] lg:w-[400px] lg:h-[460px] object-cover object-top rounded-3xl shadow-2xl"
@@ -118,9 +117,9 @@ export const Hero = () => {
 
         {/* Scroll Indicator */}
         <button onClick={() => document.getElementById('problem')?.scrollIntoView({
-        behavior: 'smooth'
-      })} className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce hidden md:block cursor-pointer hover:opacity-70 transition-opacity" aria-label="Scroll to next section">
-          <div className="w-6 h-10 border-2 border-muted-foreground/30 rounded-full flex justify-center pt-2">
+          behavior: 'smooth'
+        })} className="absolute bottom-8 left-1/2 -translate-x-1/2 hero-scroll-indicator hidden md:block cursor-pointer hover:opacity-70 transition-opacity" aria-label="Scroll to next section">
+          <div className="hero-scroll-indicator-inner w-6 h-10 border-2 border-muted-foreground/30 rounded-full flex justify-center pt-2">
             <div className="w-1.5 h-3 bg-primary rounded-full" />
           </div>
         </button>

@@ -190,6 +190,24 @@
   will-change: box-shadow;
 }
 
+@keyframes hero-scroll-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.hero-scroll-indicator {
+  transform: translateX(-50%) !important;
+  will-change: transform;
+}
+
+.hero-scroll-indicator-inner {
+  display: inline-flex;
+  animation: hero-scroll-bounce 1s ease-in-out infinite !important;
+  animation-direction: normal !important;
+  animation-fill-mode: both !important;
+  will-change: transform;
+}
+
 .animate-marquee {
   animation: marquee 20s linear infinite;
   will-change: transform;

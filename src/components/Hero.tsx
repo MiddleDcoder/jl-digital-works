@@ -41,17 +41,17 @@ export const Hero = () => {
               </p>
 
               {/* Service Pills */}
-              <div className="flex flex-nowrap gap-2 mb-8 animate-in animate-delay-250 justify-center lg:justify-start">
-                <div className="flex items-center gap-1.5 px-3 py-1.5 bg-primary text-primary-foreground rounded-full text-xs font-semibold shadow-md whitespace-nowrap">
-                  <Code className="w-3.5 h-3.5 shrink-0" />
+              <div className="flex flex-wrap gap-3 mb-8 animate-in animate-delay-250 justify-center lg:justify-start">
+                <div className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-full text-sm font-semibold shadow-md">
+                  <Code className="w-4 h-4" />
                   <span>Web Design & Dev</span>
                 </div>
                 <a href="#automation" className="flex items-center gap-1.5 px-3 py-1.5 bg-card border border-border rounded-full text-xs font-medium text-muted-foreground hover:border-primary/50 hover:text-foreground transition-all cursor-pointer whitespace-nowrap">
                   <Zap className="w-3.5 h-3.5 shrink-0" />
                   <span>GHL Systems</span>
                 </a>
-                <a href="#tracking" className="flex items-center gap-1.5 px-3 py-1.5 bg-card border border-border rounded-full text-xs font-medium text-muted-foreground hover:border-primary/50 hover:text-foreground transition-all cursor-pointer whitespace-nowrap">
-                  <BarChart3 className="w-3.5 h-3.5 shrink-0" />
+                <a href="#tracking" className="flex items-center gap-2 px-4 py-2 bg-card border border-border rounded-full text-sm font-medium text-muted-foreground hover:border-primary/50 hover:text-foreground transition-all cursor-pointer">
+                  <BarChart3 className="w-4 h-4" />
                   <span>Tracking & Analytics</span>
                 </a>
               </div>

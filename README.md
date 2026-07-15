@@ -125,7 +125,7 @@ Contributions are welcome when they improve the quality, clarity, or functionali
 
 ## License
 
-No dedicated license file is currently included in the repository.
+This project is licensed under the GNU General Public License v3.0. See the [LICENSE](LICENSE) file for the full terms.
 
 ## Live Site
 

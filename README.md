@@ -1,6 +1,6 @@
 # Welcome to my personal / freelancer site
 
-This project is created for my portfolio site and freelancing with combination of Hard Coding and Lovable. 
+This project is created for my portfolio site and freelancing with combination of Hard Coding and Lovable to speed up things reduce time boilerplate and iterate with my web development skills. 
 
 ## Project info
 
